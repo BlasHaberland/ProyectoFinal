@@ -8,21 +8,24 @@ public class Horario {
   private Ruta ruta;
   private LocalTime horaSalida; // Verificar que sea el tipo de dato correcto
   private LocalTime horaLlegada; // Verificar que sea el tipo de dato correcto
+  private boolean estado;
 
   public Horario() {
   }
 
-  public Horario(Ruta ruta, LocalTime horaSalida, LocalTime horaLlegada) {
+  public Horario(Ruta ruta, LocalTime horaSalida, LocalTime horaLlegada, boolean estado) {
     this.ruta = ruta;
     this.horaSalida = horaSalida;
     this.horaLlegada = horaLlegada;
+    this.estado = estado;
   }
 
-  public Horario(int idHorario, Ruta ruta, LocalTime horaSalida, LocalTime horaLlegada) {
+  public Horario(int idHorario, Ruta ruta, LocalTime horaSalida, LocalTime horaLlegada, boolean estado) {
     this.idHorario = idHorario;
     this.ruta = ruta;
     this.horaSalida = horaSalida;
     this.horaLlegada = horaLlegada;
+    this.estado = estado;
   }
 
   public int getIdHorario() {
@@ -55,6 +58,14 @@ public class Horario {
 
   public void setHoraLlegada(LocalTime horaLlegada) {
     this.horaLlegada = horaLlegada;
+  }
+
+  public boolean isEstado() {
+    return estado;
+  }
+
+  public void setEstado(boolean estado) {
+    this.estado = estado;
   }
 
   @Override
