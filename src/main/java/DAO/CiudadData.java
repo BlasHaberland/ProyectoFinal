@@ -154,6 +154,7 @@ public class CiudadData {
             } else {
                 System.out.println("La ciudad no existe");
             }
+            ps.close();
         } catch (SQLException ex) {
             System.err.println("Error en SQL");
             System.out.println(ex);
