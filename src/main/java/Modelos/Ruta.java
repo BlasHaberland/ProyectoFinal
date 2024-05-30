@@ -1,26 +1,26 @@
 package Modelos;
 
-import java.time.Duration;
+import java.time.LocalTime;
 
 public class Ruta {
 
   private int idRuta;
   private Ciudad origen;
   private Ciudad destino;
-  private Duration duracionEstimada; // Verificar que sea el tipo de dato correcto
+  private LocalTime duracionEstimada; // Verificar que sea el tipo de dato correcto
   private boolean estado;
 
   public Ruta() {
   }
 
-  public Ruta(Ciudad origen, Ciudad destino, Duration duracionEstimada, boolean estado) {
+  public Ruta(Ciudad origen, Ciudad destino, LocalTime duracionEstimada, boolean estado) {
     this.origen = origen;
     this.destino = destino;
     this.duracionEstimada = duracionEstimada;
     this.estado = estado;
   }
 
-  public Ruta(int idRuta, Ciudad origen, Ciudad destino, Duration duracionEstimada, boolean estado) {
+  public Ruta(int idRuta, Ciudad origen, Ciudad destino, LocalTime duracionEstimada, boolean estado) {
     this.idRuta = idRuta;
     this.origen = origen;
     this.destino = destino;
@@ -52,11 +52,11 @@ public class Ruta {
     this.destino = destino;
   }
 
-  public Duration getDuracionEstimada() {
+  public LocalTime getDuracionEstimada() {
     return duracionEstimada;
   }
 
-  public void setDuracionEstimada(Duration duracionEstimada) {
+  public void setDuracionEstimada(LocalTime duracionEstimada) {
     this.duracionEstimada = duracionEstimada;
   }
 
