@@ -5,24 +5,27 @@ import java.time.Duration;
 public class Ruta {
 
   private int idRuta;
-  private String origen;
-  private String destino;
+  private Ciudad origen;
+  private Ciudad destino;
   private Duration duracionEstimada; // Verificar que sea el tipo de dato correcto
+  private boolean estado;
 
   public Ruta() {
   }
 
-  public Ruta(String origen, String destino, Duration duracionEstimada) {
+  public Ruta(Ciudad origen, Ciudad destino, Duration duracionEstimada, boolean estado) {
     this.origen = origen;
     this.destino = destino;
     this.duracionEstimada = duracionEstimada;
+    this.estado = estado;
   }
 
-  public Ruta(int idRuta, String origen, String destino, Duration duracionEstimada) {
+  public Ruta(int idRuta, Ciudad origen, Ciudad destino, Duration duracionEstimada, boolean estado) {
     this.idRuta = idRuta;
     this.origen = origen;
     this.destino = destino;
     this.duracionEstimada = duracionEstimada;
+    this.estado = estado;
   }
 
   public int getIdRuta() {
@@ -33,19 +36,19 @@ public class Ruta {
     this.idRuta = idRuta;
   }
 
-  public String getOrigen() {
+  public Ciudad getOrigen() {
     return origen;
   }
 
-  public void setOrigen(String origen) {
+  public void setOrigen(Ciudad origen) {
     this.origen = origen;
   }
 
-  public String getDestino() {
+  public Ciudad getDestino() {
     return destino;
   }
 
-  public void setDestino(String destino) {
+  public void setDestino(Ciudad destino) {
     this.destino = destino;
   }
 
@@ -55,6 +58,14 @@ public class Ruta {
 
   public void setDuracionEstimada(Duration duracionEstimada) {
     this.duracionEstimada = duracionEstimada;
+  }
+
+  public boolean isEstado() {
+    return estado;
+  }
+
+  public void setEstado(boolean estado) {
+    this.estado = estado;
   }
 
   @Override
