@@ -94,5 +94,4 @@ public class Colectivo {
   public String toString() {
     return matricula + " - " + marca + " " + modelo + " (" + capacidad + " pasajeros)";
   }
-
 }
