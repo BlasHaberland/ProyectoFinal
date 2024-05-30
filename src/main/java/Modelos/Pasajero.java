@@ -7,14 +7,14 @@ public class Pasajero {
   private int idPasajero;
   private String nombre;
   private String apellido;
-  private String dni;
+  private int dni;
   private String correo;
   private String telefono;
 
   public Pasajero() {
   }
 
-  public Pasajero(String nombre, String apellido, String dni, String correo, String telefono) {
+  public Pasajero(String nombre, String apellido, int dni, String correo, String telefono) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.dni = dni;
@@ -22,7 +22,7 @@ public class Pasajero {
     this.telefono = telefono;
   }
 
-  public Pasajero(int idPasajero, String nombre, String apellido, String dni, String correo, String telefono) {
+  public Pasajero(int idPasajero, String nombre, String apellido, int dni, String correo, String telefono) {
     this.idPasajero = idPasajero;
     this.nombre = nombre;
     this.apellido = apellido;
@@ -55,11 +55,11 @@ public class Pasajero {
     this.apellido = apellido;
   }
 
-  public String getDni() {
+  public int getDni() {
     return dni;
   }
 
-  public void setDni(String dni) {
+  public void setDni(int dni) {
     this.dni = dni;
   }
 
@@ -82,8 +82,8 @@ public class Pasajero {
   @Override
   public int hashCode() {
     int hash = 7;
-    hash = 53 * hash + Objects.hashCode(this.dni);
-    hash = 53 * hash + Objects.hashCode(this.correo);
+    hash = 89 * hash + this.dni;
+    hash = 89 * hash + Objects.hashCode(this.correo);
     return hash;
   }
 
@@ -99,7 +99,7 @@ public class Pasajero {
       return false;
     }
     final Pasajero other = (Pasajero) obj;
-    if (!Objects.equals(this.dni, other.dni)) {
+    if (this.dni != other.dni) {
       return false;
     }
     return Objects.equals(this.correo, other.correo);
