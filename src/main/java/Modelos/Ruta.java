@@ -7,7 +7,7 @@ public class Ruta {
   private int idRuta;
   private String origen;
   private String destino;
-  private Duration duracionEstimada;
+  private Duration duracionEstimada; // Verificar que sea el tipo de dato correcto
 
   public Ruta() {
   }
