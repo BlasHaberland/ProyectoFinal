@@ -5,8 +5,69 @@ import DAO.RutaData;
 public class ProyectoFinal {
 
   public static void main(String[] args) {
+//      ColectivoData
+//        //borrarColectivo
+//        ColectivoData colectivoData = new ColectivoData();
+//        System.out.println(colectivoData.borrarColectivo(1));
+//
+//        //modificarColectivo
+//        ColectivoData colectivoData = new ColectivoData();
+//        Colectivo colectivo = colectivoData.obtenerColectivoPorId(1);
+//        colectivo.setEstado(true);
+//        System.out.println(colectivoData.modificarColectivo(colectivo));
+//
+//        //crearColectivo
+//        ColectivoData colectivoData = new ColectivoData();
+//        Colectivo colectivo = new Colectivo("AB123CD", "Volvo", "Travel", 50, true);
+//        System.out.println(colectivoData.crearColectivo(colectivo));
+//
+//        //obternerColectivoPorMatricula
+//        ColectivoData colectivoData = new ColectivoData();
+//        Colectivo colectivo = colectivoData.obtenerColectivoPorId(1);
+//        System.out.println(colectivoData.obtenerColectivoPorMatricula(colectivo.getMatricula()));
+//
+//        //obtenerColectivoPorId
+//        ColectivoData colectivoData = new ColectivoData();
+//        Colectivo colectivo = colectivoData.obtenerColectivoPorId(1);
+//        System.out.println(colectivoData.obtenerColectivoPorId(colectivo.getIdColectivo()));
+//
+//        //obtenerColectivos
+//        ColectivoData colectivoData = new ColectivoData();
+//        List<Colectivo> colectivos = new ArrayList<>();
+//        colectivos = colectivoData.obtenerColectivos();
+//        System.out.println(colectivos);
+//
+//      PasajeroData
+//        //borrarPasajero
+//        PasajeroData pasajeroData = new PasajeroData();
+//        System.out.println(pasajeroData.borrarPasajero(1));
+//
+//        //modificarPasajero
+//        PasajeroData pasajeroData = new PasajeroData();
+//        Pasajero pasajero = pasajeroData.obtenerPasajeroPorId(1);
+//        pasajero.setEstado(true);
+//        System.out.println(pasajeroData.modificarPasajero(pasajero));
+//
+//        //crearPasajero
+//        PasajeroData pasajeroData = new PasajeroData();
+//        Pasajero pasajero = new Pasajero("Brad", "Pitt", 32876543, "elpitt@gmail.com", "15432876345", true);
+//        pasajeroData.crearPasajero(pasajero);
+//
+//        //obtenerPasajeroPorDni
+//        PasajeroData pasajeroData = new PasajeroData();
+//        System.out.println(pasajeroData.obtenerPasajeroPorDni(42133651));
+//
+//        //obtenerPasajeroPorId
+//        PasajeroData pasajeroData = new PasajeroData();
+//        System.out.println(pasajeroData.obtenerPasajeroPorId(1));
+//
+//        //listarPasajeros
+//        List<Pasajero> pasajeros = new ArrayList<>();
+//        PasajeroData pasajeroData = new PasajeroData();
+//        pasajeros = pasajeroData.obtenerPasajeros();
+//        System.out.println(pasajeros);
 
-    //CiudadData
+//      CiudadData
 //        //borrarCiudad
 //        CiudadData ciudadData = new CiudadData();
 //        System.out.println(ciudadData.borrarCiudad(10));
@@ -27,7 +88,7 @@ public class ProyectoFinal {
 //        String ciudad = "Merlo";
 //        System.out.println(ciudadData.obtenerCiudadPorNombre(ciudad));
 //
-//        //buscarCiudadPorId
+//        //obtenerCiudadPorId
 //        CiudadData ciudadData = new CiudadData();
 //        System.out.println(ciudadData.obtenerCiudadPorId(8));
 //
