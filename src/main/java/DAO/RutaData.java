@@ -26,7 +26,7 @@ public class RutaData {
     List<Ruta> rutas = new ArrayList<>();
 
     try {
-      String sql = "SELECT * FROM ruta";
+      String sql = "SELECT * FROM ruta;";
       Statement st = this.connection.createStatement();
       ResultSet rs = st.executeQuery(sql);
 
@@ -43,10 +43,9 @@ public class RutaData {
         rutas.add(ruta);
       }
 
-      rs.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+      st.close();
+    } catch (SQLException e) {
+      System.err.println(e);
     }
     return rutas;
   }
@@ -72,10 +71,9 @@ public class RutaData {
         ruta = new Ruta(idRuta, origen, destino, duracionEstimada, estado);
       }
 
-      rs.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
     }
 
     return ruta;
@@ -104,10 +102,9 @@ public class RutaData {
         rutas.add(ruta);
       }
 
-      rs.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
     }
     return rutas;
   }
@@ -135,10 +132,9 @@ public class RutaData {
         rutas.add(ruta);
       }
 
-      rs.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
     }
     return rutas;
   }
@@ -168,10 +164,9 @@ public class RutaData {
         rutas.add(ruta);
       }
 
-      rs.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
     }
     return rutas;
   }
@@ -180,7 +175,7 @@ public class RutaData {
     boolean exito = false;
 
     try {
-      String sql = "INSERT INTO ruta( id_origen, id_destino, duracion_estimada) VALUES (?,?,?)";
+      String sql = "INSERT INTO ruta( id_origen, id_destino, duracion_estimada) VALUES (?,?,?);";
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setInt(1, ruta.getOrigen().getIdCiudad());
       ps.setInt(2, ruta.getDestino().getIdCiudad());
@@ -193,9 +188,8 @@ public class RutaData {
       }
 
       ps.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+    } catch (SQLException e) {
+      System.err.println(e);
     }
     return exito;
   }
@@ -205,7 +199,7 @@ public class RutaData {
 
     try {
       // String sql = "UPDATE alumnos SET dni = ? , apellido = ?, nombre = ?, fecha_Nacimiento = ?, estado = ? WHERE id_Alumno = ?";
-      String sql = "UPDATE ruta SET id_origen = ?, id_destino = ?, duracion_estimada = ?, estado = ? WHERE id_ruta = ?";
+      String sql = "UPDATE ruta SET id_origen = ?, id_destino = ?, duracion_estimada = ?, estado = ? WHERE id_ruta = ?;";
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setInt(1, ruta.getOrigen().getIdCiudad());
       ps.setInt(2, ruta.getDestino().getIdCiudad());
@@ -220,9 +214,8 @@ public class RutaData {
       }
 
       ps.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+    } catch (SQLException e) {
+      System.err.println(e);
     }
     return exito;
   }
@@ -231,18 +224,19 @@ public class RutaData {
     boolean exito = false;
 
     try {
-      String sql = "UPDATE ruta SET estado = 0 WHERE id_ruta = ?";
+      String sql = "UPDATE ruta SET estado = 0 WHERE id_ruta = ?;";
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setInt(1, id);
+
       int filas = ps.executeUpdate();
+
       if (filas > 0) {
         exito = true;
       }
 
       ps.close();
-    } catch (SQLException ex) {
-      System.err.println("Error en SQL");
-      System.out.println(ex);
+    } catch (SQLException e) {
+      System.err.println(e);
     }
     return exito;
   }

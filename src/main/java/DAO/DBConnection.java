@@ -12,9 +12,9 @@ public class DBConnection {
   private DBConnection() throws SQLException {
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-    } catch (ClassNotFoundException ex) {
+    } catch (ClassNotFoundException e) {
       System.err.println("Error en el Driver de MySQL");
-      System.err.println(ex);
+      System.err.println(e);
     }
     connection = DriverManager.getConnection("jdbc:mysql://root:@localhost:3306/proyecto_final"); // Cadena de conexión a la base de datos
   }
@@ -23,9 +23,8 @@ public class DBConnection {
     if (dbCon == null) {
       try {
         dbCon = new DBConnection();
-      } catch (SQLException ex) {
-        System.err.println("Error en MySQL");
-        System.err.println(ex);
+      } catch (SQLException e) {
+        System.err.println(e);
       }
     }
     return dbCon;
