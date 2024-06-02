@@ -1,6 +1,8 @@
 package com.mycompany.proyectofinal;
 
-import DAO.RutaData;
+import DAO.PasajeData;
+import Modelos.Pasaje;
+import java.util.List;
 
 public class ProyectoFinal {
 
@@ -142,15 +144,103 @@ public class ProyectoFinal {
 //
 // 7. Modificar ruta
 //    RutaData rutaData = new RutaData();
-//    Ruta ruta = rutaData.obtenerRutaPorId(5);
-//    ruta.setDuracionEstimada(LocalTime.of(3, 25));
+//    Ruta ruta = rutaData.obtenerRutaPorId(1);
+//    ruta.setDuracionEstimada(LocalTime.of(3, 05));
 //    System.out.println(ruta);
 //    boolean exito = rutaData.modificarRuta(ruta);
 //    System.out.println(exito);
 //
 // 8. Eliminar ruta
-    RutaData rutaData = new RutaData();
-    boolean exito = rutaData.borrarRuta(5);
-    System.out.println(exito);
+//    RutaData rutaData = new RutaData();
+//    boolean exito = rutaData.borrarRuta(5);
+//    System.out.println(exito);
+//
+// HORARIOS
+// 1. Obtener rutas
+//    HorarioData horarioData = new HorarioData();
+//    List<Horario> horarios = horarioData.obtenerHorarios();
+//    System.out.println(horarios);
+//
+// 2. Obtener horario por id
+//    HorarioData horarioData = new HorarioData();
+//    Horario horario = horarioData.obtenerHorarioPorId(1);
+//    System.out.println(horario);
+//
+// 3. Obtener horario por id de ruta
+//    HorarioData horarioData = new HorarioData();
+//    List<Horario> horario = horarioData.obtenerHorariosPorIdRuta(1);
+//    System.out.println(horario);
+//
+// 4. Crear horario
+//    HorarioData horarioData = new HorarioData();
+//    RutaData rutaData = new RutaData();
+//    Ruta ruta = rutaData.obtenerRutaPorId(1);
+//    LocalTime horaSalida = LocalTime.of(15, 0, 0);
+//    LocalTime durarionEstimada = ruta.getDuracionEstimada();
+//    LocalTime horaLlegada = horaSalida.plusHours(durarionEstimada.getHour()).plusMinutes(durarionEstimada.getMinute()).plusSeconds(durarionEstimada.getSecond());
+//    Horario horario = new Horario(ruta, horaSalida, horaLlegada, true);
+//    boolean exito = horarioData.crearHorario(horario);
+//    System.out.println(exito);
+//
+// 7. Modificar horario
+//    HorarioData horarioData = new HorarioData();
+//    Horario horario = horarioData.obtenerHorarioPorId(1);
+//    horario.setEstado(true);
+//    boolean exito = horarioData.modificarHorario(horario);
+//    System.out.println(exito);
+//
+// 8. Eliminar horario
+//    HorarioData horarioData = new HorarioData();
+//    boolean exito = horarioData.borrarHorario(2);
+//    System.out.println(exito);
+//
+// PASAJES
+// 1. Obtener pasajes
+//    PasajeData pasajeData = new PasajeData();
+//    List<Pasaje> pasajes = pasajeData.obtenerPasajes();
+//    System.out.println(pasajes);
+//
+// 2. Obtener pasaje por id
+//    PasajeData pasajeData = new PasajeData();
+//    Pasaje pasaje = pasajeData.obtenerPasajePorId(1);
+//    System.out.println(pasaje);
+//
+// 3. Obtener pasaje por id de pasajero
+    PasajeData pasajeData = new PasajeData();
+    List<Pasaje> pasajes = pasajeData.obtenerPasajesPorIdPasajero(1);
+    System.out.println(pasajes);
+//
+// 4. Crear pasaje
+//    PasajeData pasajeData = new PasajeData();
+//    PasajeroData pasajeroData = new PasajeroData();
+//    ColectivoData colectivoData = new ColectivoData();
+//    HorarioData horarioData = new HorarioData();
+//    Pasajero pasajero = pasajeroData.obtenerPasajeroPorId(2);
+//    Colectivo colectivo = colectivoData.obtenerColectivoPorMatricula("FQS655");
+//    List<Horario> horarios = horarioData.obtenerHorariosPorIdRuta(1);
+//    Horario horario = horarios.get(0);
+//    Ruta ruta = horario.getRuta();
+//    LocalDate fechaViaje = LocalDate.now();
+//    LocalTime horaViaje = horario.getHoraSalida();
+//    int asiento = 2;
+//    double precio = 15000;
+//    boolean estado = true;
+//
+//    Pasaje pasaje = new Pasaje(pasajero, colectivo, ruta, fechaViaje, horaViaje, asiento, precio, estado);
+//    boolean exito = pasajeData.crearPasaje(pasaje);
+//    System.out.println(exito);
+//
+// 5. Modificar pasaje
+//    PasajeData pasajeData = new PasajeData();
+//    Pasaje pasaje = pasajeData.obtenerPasajePorId(1);
+//    System.out.println(pasaje);
+//    pasaje.setEstado(false);
+//    boolean exito = pasajeData.modificarPasaje(pasaje);
+//    System.out.println(exito);
+//
+// 6. Eliminar pasaje
+//    PasajeData pasajeData = new PasajeData();
+//    boolean exito = pasajeData.borrarPasaje(1);
+//    System.out.println(exito);
   }
 }

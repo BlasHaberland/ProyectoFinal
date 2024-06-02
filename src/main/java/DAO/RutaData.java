@@ -1,6 +1,7 @@
 package DAO;
 
 import Modelos.Ciudad;
+import Modelos.Horario;
 import Modelos.Ruta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -198,7 +199,6 @@ public class RutaData {
     boolean exito = false;
 
     try {
-      // String sql = "UPDATE alumnos SET dni = ? , apellido = ?, nombre = ?, fecha_Nacimiento = ?, estado = ? WHERE id_Alumno = ?";
       String sql = "UPDATE ruta SET id_origen = ?, id_destino = ?, duracion_estimada = ?, estado = ? WHERE id_ruta = ?;";
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setInt(1, ruta.getOrigen().getIdCiudad());
@@ -211,6 +211,16 @@ public class RutaData {
 
       if (filas > 0) {
         exito = true;
+      }
+
+      // Actualiza la hora de llegada de la tabla horario
+      HorarioData horarioData = new HorarioData();
+      List<Horario> horarios = horarioData.obtenerHorariosPorIdRuta(ruta.getIdRuta());
+      for (Horario horario : horarios) {
+        LocalTime horaSalida = horario.getHoraSalida();
+        LocalTime horaLlegada = horaSalida.plusHours(ruta.getDuracionEstimada().getHour()).plusMinutes(ruta.getDuracionEstimada().getMinute()).plusSeconds(ruta.getDuracionEstimada().getSecond());
+        horario.setHoraLlegada(horaLlegada);
+        horarioData.modificarHorario(horario);
       }
 
       ps.close();

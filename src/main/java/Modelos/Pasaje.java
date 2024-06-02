@@ -9,7 +9,7 @@ public class Pasaje {
   private Pasajero pasajero;
   private Colectivo colectivo;
   private Ruta ruta;
-  private LocalDate fehcaViaje;
+  private LocalDate fechaViaje;
   private LocalTime horaViaje;
   private int asiento;
   private double precio;
@@ -18,23 +18,23 @@ public class Pasaje {
   public Pasaje() {
   }
 
-  public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, LocalDate fehcaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
+  public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
     this.pasajero = pasajero;
     this.colectivo = colectivo;
     this.ruta = ruta;
-    this.fehcaViaje = fehcaViaje;
+    this.fechaViaje = fechaViaje;
     this.horaViaje = horaViaje;
     this.asiento = asiento;
     this.precio = precio;
     this.estado = estado;
   }
 
-  public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, LocalDate fehcaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
+  public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
     this.idPasaje = idPasaje;
     this.pasajero = pasajero;
     this.colectivo = colectivo;
     this.ruta = ruta;
-    this.fehcaViaje = fehcaViaje;
+    this.fechaViaje = fechaViaje;
     this.horaViaje = horaViaje;
     this.asiento = asiento;
     this.precio = precio;
@@ -73,12 +73,12 @@ public class Pasaje {
     this.ruta = ruta;
   }
 
-  public LocalDate getFehcaViaje() {
-    return fehcaViaje;
+  public LocalDate getFechaViaje() {
+    return fechaViaje;
   }
 
-  public void setFehcaViaje(LocalDate fehcaViaje) {
-    this.fehcaViaje = fehcaViaje;
+  public void setFechaViaje(LocalDate fechaViaje) {
+    this.fechaViaje = fechaViaje;
   }
 
   public LocalTime getHoraViaje() {
@@ -114,7 +114,9 @@ public class Pasaje {
   }
 
   @Override
+  // TODO: Este método devuelve demasiada información como para mostar en
+  // pantalla. Hay que modificarlo.
   public String toString() {
-    return "Pasaje{" + "idPasaje=" + idPasaje + ", pasajero=" + pasajero + ", colectivo=" + colectivo + ", ruta=" + ruta + ", fehcaViaje=" + fehcaViaje + ", horaViaje=" + horaViaje + ", asiento=" + asiento + ", precio=" + precio + '}';
+    return "Pasaje{" + "idPasaje=" + idPasaje + ", pasajero=" + pasajero + ", colectivo=" + colectivo + ", ruta=" + ruta + ", fechaViaje=" + fechaViaje + ", horaViaje=" + horaViaje + ", asiento=" + asiento + ", precio=" + precio + '}';
   }
 }

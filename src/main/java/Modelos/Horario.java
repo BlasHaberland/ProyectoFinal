@@ -70,7 +70,7 @@ public class Horario {
 
   @Override
   public String toString() {
-    return ruta.getOrigen() + " - " + ruta.getDestino() + " - " + horaSalida + "-" + horaLlegada;
+    return ruta.getOrigen() + " - " + ruta.getDestino() + " - " + horaSalida + "hs. - " + horaLlegada + "hs.";
   }
 
 }
