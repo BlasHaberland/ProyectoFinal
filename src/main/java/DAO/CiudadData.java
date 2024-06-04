@@ -71,9 +71,9 @@ public class CiudadData {
     Ciudad ciudad = null;
 
     try {
-      String sql = "SELECT * FROM ciudad WHERE nombre = ?;";
+      String sql = "SELECT * FROM ciudad WHERE nombre LIKE ?;";
       PreparedStatement ps = connection.prepareStatement(sql);
-      ps.setString(1, nombreCiudad);
+      ps.setString(1, "%" + nombreCiudad);
       ResultSet rs = ps.executeQuery();
 
       while (rs.next()) {
