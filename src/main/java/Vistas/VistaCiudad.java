@@ -4,6 +4,11 @@
  */
 package Vistas;
 
+import DAO.CiudadData;
+import Modelos.Ciudad;
+import Utilidades.Regex;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alamb
@@ -15,6 +20,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
    */
   public VistaCiudad() {
     initComponents();
+    limpiarCampos();
   }
 
   /**
@@ -33,14 +39,22 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     buscar = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
     idCiudad = new javax.swing.JTextField();
-    jButton1 = new javax.swing.JButton();
-    jButton2 = new javax.swing.JButton();
+    limpiar = new javax.swing.JButton();
+    guardar = new javax.swing.JButton();
+    estado = new javax.swing.JRadioButton();
+    jLabel4 = new javax.swing.JLabel();
+    eliminar = new javax.swing.JButton();
 
     setClosable(true);
     setTitle("Ciudad");
     setPreferredSize(new java.awt.Dimension(800, 580));
 
     nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        nombreKeyReleased(evt);
+      }
+    });
 
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
     jLabel1.setText("Nombre:");
@@ -49,45 +63,92 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     jLabel2.setText("Provincia:");
 
     provincia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    provincia.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        provinciaKeyReleased(evt);
+      }
+    });
 
     buscar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
     buscar.setText("Buscar");
+    buscar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        buscarActionPerformed(evt);
+      }
+    });
 
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
     jLabel3.setText("ID:");
 
     idCiudad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    idCiudad.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        idCiudadKeyReleased(evt);
+      }
+    });
 
-    jButton1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-    jButton1.setText("Limpiar");
+    limpiar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    limpiar.setText("Limpiar");
+    limpiar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        limpiarActionPerformed(evt);
+      }
+    });
 
-    jButton2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-    jButton2.setText("Guardar");
+    guardar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    guardar.setText("Guardar");
+    guardar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        guardarActionPerformed(evt);
+      }
+    });
+
+    estado.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        estadoItemStateChanged(evt);
+      }
+    });
+
+    jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel4.setText("Estado:");
+
+    eliminar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    eliminar.setText("Eliminar");
+    eliminar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        eliminarActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+      .addGroup(layout.createSequentialGroup()
         .addContainerGap(114, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(jLabel1)
               .addComponent(jLabel2)
-              .addComponent(jLabel3))
+              .addComponent(jLabel3)
+              .addComponent(jLabel4))
             .addGap(18, 18, 18)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(idCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-              .addComponent(nombre, javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(provincia)))
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(estado)
+              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createSequentialGroup()
+                  .addComponent(idCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                  .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(nombre, javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(provincia))))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addGap(114, 114, 114))
     );
     layout.setVerticalGroup(
@@ -106,25 +167,185 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel2)
           .addComponent(provincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+        .addGap(28, 28, 28)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel4)
+          .addComponent(estado))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jButton1)
-          .addComponent(jButton2))
+          .addComponent(limpiar)
+          .addComponent(guardar)
+          .addComponent(eliminar))
         .addGap(94, 94, 94))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void idCiudadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idCiudadKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_idCiudadKeyReleased
+
+  private void nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_nombreKeyReleased
+
+  private void provinciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_provinciaKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_provinciaKeyReleased
+
+  private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    // TODO add your handling code here:
+    Integer id = Integer.valueOf(idCiudad.getText().trim());
+    ciudadActiva = ciudadData.obtenerCiudadPorId(id);
+
+    if (ciudadActiva != null) {
+      idCiudad.setEnabled(false);
+      buscar.setEnabled(false);
+
+      idCiudad.setText(String.valueOf(ciudadActiva.getIdCiudad()));
+      nombre.setText(ciudadActiva.getNombre());
+      provincia.setText(ciudadActiva.getProvincia());
+      estado.setSelected(ciudadActiva.isEstado());
+
+      eliminar.setEnabled(true);
+    } else {
+      limpiarCampos();
+      idCiudad.requestFocus();
+      JOptionPane.showMessageDialog(this, "Ciudad no encontrada");
+    }
+  }//GEN-LAST:event_buscarActionPerformed
+
+  private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+    // TODO add your handling code here:
+    limpiarCampos();
+  }//GEN-LAST:event_limpiarActionPerformed
+
+  private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+    // TODO add your handling code here:
+    boolean respuesta = ciudadData.borrarCiudad(ciudadActiva.getIdCiudad());
+
+    if (respuesta) {
+      limpiarCampos();
+      JOptionPane.showMessageDialog(this, "Ciudad eliminada");
+    } else {
+      JOptionPane.showMessageDialog(this, "Hubo un error al intentar eliminar la ciudad");
+    }
+  }//GEN-LAST:event_eliminarActionPerformed
+
+  private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+    // TODO add your handling code here:
+    if (ciudadActiva == null) {
+      String nombreNuevo = nombre.getText();
+      String provinciaNuevo = provincia.getText();
+      boolean estadoNuevo = this.estado.isSelected();
+
+      Ciudad ciudad = new Ciudad(nombreNuevo, provinciaNuevo, estadoNuevo);
+      boolean respuesta = ciudadData.crearCiudad(ciudad);
+
+      if (respuesta) {
+        JOptionPane.showMessageDialog(this, "Ciudad creada");
+      } else {
+        JOptionPane.showMessageDialog(this, "Hubo un error al intentar crear la ciudad");
+      }
+    } else {
+      ciudadActiva.setNombre(nombre.getText());
+      ciudadActiva.setProvincia(provincia.getText());
+      ciudadActiva.setEstado(estado.isSelected());
+
+      boolean respuesta = ciudadData.modificarCiudad(ciudadActiva);
+
+      if (respuesta) {
+        JOptionPane.showMessageDialog(this, "Ciudad editada");
+      } else {
+        JOptionPane.showMessageDialog(this, "Hubo un error al intentar editar la ciudad");
+      }
+    }
+
+    limpiarCampos();
+  }//GEN-LAST:event_guardarActionPerformed
+
+  private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
+    // TODO add your handling code here:
+    guardar.setEnabled(true);
+  }//GEN-LAST:event_estadoItemStateChanged
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton buscar;
+  private javax.swing.JButton eliminar;
+  private javax.swing.JRadioButton estado;
+  private javax.swing.JButton guardar;
   private javax.swing.JTextField idCiudad;
-  private javax.swing.JButton jButton1;
-  private javax.swing.JButton jButton2;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JButton limpiar;
   private javax.swing.JTextField nombre;
   private javax.swing.JTextField provincia;
   // End of variables declaration//GEN-END:variables
+  private Ciudad ciudadActiva;
+  private final CiudadData ciudadData = new CiudadData();
+
+  private void limpiarCampos() {
+    ciudadActiva = null;
+    idCiudad.setText("");
+    nombre.setText("");
+    provincia.setText("");
+    estado.setSelected(true);
+    buscar.setEnabled(false);
+    limpiar.setEnabled(false);
+    eliminar.setEnabled(false);
+    guardar.setEnabled(false);
+    idCiudad.setEnabled(true);
+    idCiudad.requestFocus();
+  }
+
+  private void chequearCampos() {
+    //OBTENER CAMPOS
+    String textoIdCiudad = idCiudad.getText().trim();
+    String textoNombre = nombre.getText().trim();
+    String textoProvincia = provincia.getText().trim();
+
+    // EXPRESIONES REGULARES PARA VALIDAR DOCUMENTO, NOMBRE Y APELLIDO
+    String idRegex = "^\\d{1,8}$";
+    String nombreRegex = "^[^\\d]{1,}$";
+
+    //VALIDAR CAMPOS
+    boolean idCiudadValida = Regex.validarRegex(idRegex, textoIdCiudad);
+    boolean nombreValido = Regex.validarRegex(nombreRegex, textoNombre);
+    boolean provinciaValida = Regex.validarRegex(nombreRegex, textoProvincia);
+
+    boolean validado = idCiudadValida && nombreValido && provinciaValida;
+
+    //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
+    buscar.setEnabled(validado && ciudadActiva == null);
+    limpiar.setEnabled(true);
+    eliminar.setEnabled(validado);
+    guardar.setEnabled(nombreValido && provinciaValida);
+
+    //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
+    if (!textoIdCiudad.isEmpty() && !idCiudadValida) {
+      JOptionPane.showMessageDialog(this, "ID inválida (Sólo se aceptan números. Mínimo 1 dígito");
+    } else if (!textoNombre.isEmpty() && !nombreValido) {
+      JOptionPane.showMessageDialog(this, "Nombre inválido (No se aceptan números. Mínimo 3 caracteres");
+    } else if (!textoProvincia.isEmpty() && !provinciaValida) {
+      JOptionPane.showMessageDialog(this, "Provincia inválida (No se aceptan números. Mínimo 3 caracteres");
+    }
+
+    //HABILITAR BOTON BUSCAR SI LA ID ES VALIDO
+    if (idCiudadValida && ciudadActiva == null) {
+      buscar.setEnabled(true);
+    } else {
+      buscar.setEnabled(false);
+    }
+
+    //DESHABILITAR EL BOTON LIMPIAR SI LOS CAMPOS ESTAN VACIOS
+    if (textoIdCiudad.isEmpty() && textoNombre.isEmpty() && textoProvincia.isEmpty()) {
+      limpiar.setEnabled(false);
+    }
+  }
 }
