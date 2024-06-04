@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vistas;
 
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
 
-/**
- *
- * @author alamb
- */
 public class Escritorio extends javax.swing.JFrame {
 
   /**
