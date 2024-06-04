@@ -33,7 +33,6 @@ public class Escritorio extends javax.swing.JFrame {
 
     escritorio = new javax.swing.JDesktopPane();
     jMenuBar1 = new javax.swing.JMenuBar();
-    jMenu6 = new javax.swing.JMenu();
     jMenu1 = new javax.swing.JMenu();
     jMenu2 = new javax.swing.JMenu();
     jMenu3 = new javax.swing.JMenu();
@@ -55,22 +54,26 @@ public class Escritorio extends javax.swing.JFrame {
       .addGap(0, 579, Short.MAX_VALUE)
     );
 
-    jMenu6.setText("Venta de Pasajes");
-    jMenuBar1.add(jMenu6);
+    jMenuBar1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
     jMenu1.setText("Pasajeros");
+    jMenu1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     jMenuBar1.add(jMenu1);
 
     jMenu2.setText("Colectivos");
+    jMenu2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     jMenuBar1.add(jMenu2);
 
     jMenu3.setText("Rutas");
+    jMenu3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     jMenuBar1.add(jMenu3);
 
     jMenu4.setText("Horarios");
+    jMenu4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     jMenuBar1.add(jMenu4);
 
     jMenu5.setText("Ciudades");
+    jMenu5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
     menuCrearCiudad.setText("Crear/Editar");
     menuCrearCiudad.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +86,7 @@ public class Escritorio extends javax.swing.JFrame {
     jMenuBar1.add(jMenu5);
 
     menuSalir.setText("Salir");
+    menuSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     jMenuBar1.add(menuSalir);
 
     setJMenuBar(jMenuBar1);
@@ -149,7 +153,6 @@ public class Escritorio extends javax.swing.JFrame {
   private javax.swing.JMenu jMenu3;
   private javax.swing.JMenu jMenu4;
   private javax.swing.JMenu jMenu5;
-  private javax.swing.JMenu jMenu6;
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JMenuItem menuCrearCiudad;
   private javax.swing.JMenu menuSalir;

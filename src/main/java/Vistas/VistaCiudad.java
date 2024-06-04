@@ -26,24 +26,105 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
+    nombre = new javax.swing.JTextField();
+    jLabel1 = new javax.swing.JLabel();
+    jLabel2 = new javax.swing.JLabel();
+    provincia = new javax.swing.JTextField();
+    buscar = new javax.swing.JButton();
+    jLabel3 = new javax.swing.JLabel();
+    idCiudad = new javax.swing.JTextField();
+    jButton1 = new javax.swing.JButton();
+    jButton2 = new javax.swing.JButton();
+
     setClosable(true);
     setTitle("Ciudad");
     setPreferredSize(new java.awt.Dimension(800, 580));
+
+    nombre.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+    jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel1.setText("Nombre:");
+
+    jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel2.setText("Provincia:");
+
+    provincia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+    buscar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    buscar.setText("Buscar");
+
+    jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel3.setText("ID:");
+
+    idCiudad.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+    jButton1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jButton1.setText("Limpiar");
+
+    jButton2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jButton2.setText("Guardar");
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 798, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap(114, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel1)
+              .addComponent(jLabel2)
+              .addComponent(jLabel3))
+            .addGap(18, 18, 18)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(idCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(nombre, javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(provincia)))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(114, 114, 114))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 568, Short.MAX_VALUE)
+      .addGroup(layout.createSequentialGroup()
+        .addGap(130, 130, 130)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel3)
+          .addComponent(idCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(buscar))
+        .addGap(27, 27, 27)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel1)
+          .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(35, 35, 35)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel2)
+          .addComponent(provincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jButton1)
+          .addComponent(jButton2))
+        .addGap(94, 94, 94))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton buscar;
+  private javax.swing.JTextField idCiudad;
+  private javax.swing.JButton jButton1;
+  private javax.swing.JButton jButton2;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JTextField nombre;
+  private javax.swing.JTextField provincia;
   // End of variables declaration//GEN-END:variables
 }
