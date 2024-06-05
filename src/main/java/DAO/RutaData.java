@@ -52,7 +52,7 @@ public class RutaData {
   }
 
   public Ruta obtenerRutaPorId(int id) {
-    Ruta ruta = new Ruta();
+    Ruta ruta = null;
 
     try {
       String sql = "SELECT * FROM ruta WHERE id_ruta = ?;";
@@ -140,8 +140,9 @@ public class RutaData {
     return rutas;
   }
 
-  public List<Ruta> obtenerRutasPorOrigenDestino(Ciudad ciudadOrigen, Ciudad ciudadDestino) {
-    List<Ruta> rutas = new ArrayList<>();
+  public Ruta obtenerRutaPorOrigenDestino(Ciudad ciudadOrigen, Ciudad ciudadDestino) {
+    Ruta ruta = null;
+
     int idCiudadOrigen = ciudadOrigen.getIdCiudad();
     int idCiudadDestino = ciudadDestino.getIdCiudad();
 
@@ -152,7 +153,7 @@ public class RutaData {
       ps.setInt(2, idCiudadDestino);
       ResultSet rs = ps.executeQuery();
 
-      while (rs.next()) {
+      if (rs.next()) {
         int idRuta = rs.getInt("id_ruta");
         int idOrigen = rs.getInt("id_origen");
         Ciudad origen = ciudadData.obtenerCiudadPorId(idOrigen);
@@ -161,15 +162,14 @@ public class RutaData {
         LocalTime duracionEstimada = rs.getTime("duracion_estimada").toLocalTime();
         boolean estado = rs.getBoolean("estado");
 
-        Ruta ruta = new Ruta(idRuta, origen, destino, duracionEstimada, estado);
-        rutas.add(ruta);
+        ruta = new Ruta(idRuta, origen, destino, duracionEstimada, estado);
       }
 
       ps.close();
     } catch (SQLException e) {
       System.err.println(e);
     }
-    return rutas;
+    return ruta;
   }
 
   public boolean crearRuta(Ruta ruta) {

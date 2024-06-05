@@ -210,13 +210,14 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     if (ciudadActiva != null) {
       idCiudad.setEnabled(false);
       buscar.setEnabled(false);
+      eliminar.setEnabled(true);
+      guardar.setText("Editar");
 
       idCiudad.setText(String.valueOf(ciudadActiva.getIdCiudad()));
       nombre.setText(ciudadActiva.getNombre());
       provincia.setText(ciudadActiva.getProvincia());
       estado.setSelected(ciudadActiva.isEstado());
 
-      eliminar.setEnabled(true);
     } else {
       limpiarCampos();
       idCiudad.requestFocus();
@@ -264,9 +265,9 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
       boolean respuesta = ciudadData.modificarCiudad(ciudadActiva);
 
       if (respuesta) {
-        JOptionPane.showMessageDialog(this, "Ciudad editada");
+        JOptionPane.showMessageDialog(this, "Ciudad actualizada");
       } else {
-        JOptionPane.showMessageDialog(this, "Hubo un error al intentar editar la ciudad");
+        JOptionPane.showMessageDialog(this, "Hubo un error al intentar actualizar la ciudad");
       }
     }
 
@@ -275,7 +276,8 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
 
   private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
     // TODO add your handling code here:
-    guardar.setEnabled(true);
+    //guardar.setEnabled(true);
+    chequearCampos();
   }//GEN-LAST:event_estadoItemStateChanged
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -292,7 +294,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   private javax.swing.JTextField nombre;
   private javax.swing.JTextField provincia;
   // End of variables declaration//GEN-END:variables
-  private Ciudad ciudadActiva;
+  private Ciudad ciudadActiva = null;
   private final CiudadData ciudadData = new CiudadData();
 
   private void limpiarCampos() {
@@ -300,6 +302,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     idCiudad.setText("");
     nombre.setText("");
     provincia.setText("");
+    guardar.setText("Guardar");
     estado.setSelected(true);
     buscar.setEnabled(false);
     limpiar.setEnabled(false);
@@ -307,6 +310,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     guardar.setEnabled(false);
     idCiudad.setEnabled(true);
     idCiudad.requestFocus();
+
   }
 
   private void chequearCampos() {
@@ -329,7 +333,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
     buscar.setEnabled((idCiudadValida || nombreValido) && ciudadActiva == null);
     limpiar.setEnabled(true);
-    eliminar.setEnabled(validado);
+    eliminar.setEnabled(validado && ciudadActiva != null);
     guardar.setEnabled(nombreValido && provinciaValida);
 
     //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO

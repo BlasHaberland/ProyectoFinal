@@ -57,6 +57,6 @@ public class Ciudad {
 
   @Override
   public String toString() {
-    return nombre + "(" + provincia + ")";
+    return nombre + " (" + provincia + ")";
   }
 }
