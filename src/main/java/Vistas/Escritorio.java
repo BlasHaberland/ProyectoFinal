@@ -129,15 +129,15 @@ public class Escritorio extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void menuCrearCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearCiudadActionPerformed
-    // TODO add your handling code here:
-    VistaCiudad vista = new VistaCiudad();
-    cargarVista(vista);
+        // TODO add your handling code here:
+        VistaCiudad vista = new VistaCiudad();
+        cargarVista(vista);
   }//GEN-LAST:event_menuCrearCiudadActionPerformed
 
     private void menuCrearPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearPasajeroActionPerformed
-    // TODO add your handling code here:
-    VistaPasajero vista = new VistaPasajero();
-    cargarVista(vista);
+        // TODO add your handling code here:
+        VistaPasajero vista = new VistaPasajero();
+        cargarVista(vista);
     }//GEN-LAST:event_menuCrearPasajeroActionPerformed
 
   private void menuCrearRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearRutaActionPerformed
@@ -155,29 +155,44 @@ public class Escritorio extends javax.swing.JFrame {
     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
      */
-    try {
-      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          javax.swing.UIManager.setLookAndFeel(info.getClassName());
-          break;
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-      }
-    } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(Escritorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
+        //</editor-fold>
 
-    try {
-      FlatDraculaIJTheme.setup();
-    } catch (Exception ex) {
-      System.err.println("Failed to initialize LaF");
+        try {
+            FlatDraculaIJTheme.setup();
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Escritorio().setVisible(true);
+            }
+        });
     }
+
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -219,17 +234,15 @@ public class Escritorio extends javax.swing.JFrame {
     } catch (PropertyVetoException ex) {
       System.out.println(ex);
     }
-  }
 
-  /**
-   * Maneja el evento de clic en el menú "Salir". Cierra la aplicación cuando el
-   * menú "Salir" es clickeado.
-   *
-   * @param evt El evento de clic del ratón.
-   */
-  private void clickEnMenuSalir(java.awt.event.MouseEvent evt) {
-    if (evt.getButton() == MouseEvent.BUTTON1) {
-      System.exit(0);
+    /**
+     * Maneja el evento de clic en el menú "Salir". Cierra la aplicación cuando el menú "Salir" es clickeado.
+     *
+     * @param evt El evento de clic del ratón.
+     */
+    private void clickEnMenuSalir(java.awt.event.MouseEvent evt) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            System.exit(0);
+        }
     }
-  }
 }
