@@ -1,13 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vistas;
 
-/**
- *
- * @author alamb
- */
+import DAO.HorarioData;
+import DAO.RutaData;
+import Modelos.Horario;
+import Modelos.Ruta;
+import Utilidades.ComboBox;
+import Utilidades.Regex;
+import Utilidades.Tabla;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class VistaHorarios extends javax.swing.JInternalFrame {
 
   /**
@@ -15,6 +20,19 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
    */
   public VistaHorarios() {
     initComponents();
+
+    limpiarCampos();
+
+    panelTabla.setVisible(false);
+    CompletableFuture.supplyAsync(() -> {
+      List<Ruta> rutas = rutaData.obtenerRutas();
+
+      return rutas;
+    }).thenAccept(rutas -> {
+      ComboBox.llenar(ruta, rutas);
+    });
+
+    Tabla.crearCabeceras(tablaHorarios, modelo, new String[]{"ID", "Hora salida", "Hora llegada"}, new int[]{50, 150, 150});
   }
 
   /**
@@ -26,20 +44,555 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
+    jOptionPane1 = new javax.swing.JOptionPane();
+    ruta = new javax.swing.JComboBox<>();
+    jLabel1 = new javax.swing.JLabel();
+    panelTabla = new javax.swing.JPanel();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    tablaHorarios = new javax.swing.JTable();
+    jLabel8 = new javax.swing.JLabel();
+    buscar = new javax.swing.JButton();
+    limpiar = new javax.swing.JButton();
+    eliminar = new javax.swing.JButton();
+    guardar = new javax.swing.JButton();
+    panelHorario = new javax.swing.JPanel();
+    jLabel2 = new javax.swing.JLabel();
+    horaSalida = new javax.swing.JTextField();
+    jLabel3 = new javax.swing.JLabel();
+    horaLlegada = new javax.swing.JTextField();
+    jLabelEstado = new javax.swing.JLabel();
+    estado = new javax.swing.JRadioButton();
+    jLabel4 = new javax.swing.JLabel();
+    minutosSalida = new javax.swing.JTextField();
+    jLabel5 = new javax.swing.JLabel();
+    jLabel6 = new javax.swing.JLabel();
+    jLabel7 = new javax.swing.JLabel();
+    minutosLlegada = new javax.swing.JTextField();
+
+    setClosable(true);
+    setTitle("Horarios");
+    setPreferredSize(new java.awt.Dimension(800, 580));
+
+    ruta.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    ruta.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        rutaItemStateChanged(evt);
+      }
+    });
+
+    jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel1.setText("Ruta:");
+
+    panelTabla.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(100, 100, 100), 1, true));
+
+    tablaHorarios.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    tablaHorarios.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tablaHorariosMouseClicked(evt);
+      }
+    });
+    jScrollPane1.setViewportView(tablaHorarios);
+
+    jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel8.setText("Seleccione un horario");
+
+    javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+    panelTabla.setLayout(panelTablaLayout);
+    panelTablaLayout.setHorizontalGroup(
+      panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelTablaLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap())
+    );
+    panelTablaLayout.setVerticalGroup(
+      panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel8)
+        .addGap(18, 18, 18)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        .addContainerGap())
+    );
+
+    buscar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    buscar.setText("Buscar");
+    buscar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        buscarActionPerformed(evt);
+      }
+    });
+
+    limpiar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    limpiar.setText("Limpiar");
+    limpiar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        limpiarActionPerformed(evt);
+      }
+    });
+
+    eliminar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    eliminar.setText("Eliminar");
+    eliminar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        eliminarActionPerformed(evt);
+      }
+    });
+
+    guardar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    guardar.setText("Guardar");
+    guardar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        guardarActionPerformed(evt);
+      }
+    });
+
+    jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel2.setText("Salida:");
+
+    horaSalida.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    horaSalida.setMaximumSize(new java.awt.Dimension(30, 30));
+    horaSalida.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        horaSalidaActionPerformed(evt);
+      }
+    });
+    horaSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        horaSalidaKeyReleased(evt);
+      }
+    });
+
+    jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel3.setText("Llegada:");
+
+    horaLlegada.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    horaLlegada.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        horaLlegadaKeyReleased(evt);
+      }
+    });
+
+    jLabelEstado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabelEstado.setText("Estado:");
+
+    estado.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        estadoItemStateChanged(evt);
+      }
+    });
+
+    jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel4.setText("horas y ");
+
+    minutosSalida.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    minutosSalida.setMaximumSize(new java.awt.Dimension(30, 30));
+    minutosSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        minutosSalidaKeyReleased(evt);
+      }
+    });
+
+    jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel5.setText("minutos");
+
+    jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel6.setText("horas y ");
+
+    jLabel7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel7.setText("minutos");
+
+    minutosLlegada.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    minutosLlegada.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        minutosLlegadaActionPerformed(evt);
+      }
+    });
+
+    javax.swing.GroupLayout panelHorarioLayout = new javax.swing.GroupLayout(panelHorario);
+    panelHorario.setLayout(panelHorarioLayout);
+    panelHorarioLayout.setHorizontalGroup(
+      panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelHorarioLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel3)
+          .addComponent(jLabel2)
+          .addComponent(jLabelEstado))
+        .addGap(18, 18, 18)
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(estado)
+          .addComponent(horaLlegada, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+          .addComponent(horaSalida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(panelHorarioLayout.createSequentialGroup()
+            .addComponent(jLabel6)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(minutosLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(panelHorarioLayout.createSequentialGroup()
+            .addComponent(jLabel4)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(minutosSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel5)
+          .addComponent(jLabel7))
+        .addContainerGap())
+    );
+    panelHorarioLayout.setVerticalGroup(
+      panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelHorarioLayout.createSequentialGroup()
+        .addGap(4, 4, 4)
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel2)
+          .addComponent(horaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel4)
+          .addComponent(minutosSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel5))
+        .addGap(10, 10, 10)
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel3)
+          .addComponent(horaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel6)
+          .addComponent(jLabel7)
+          .addComponent(minutosLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(16, 16, 16)
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabelEstado)
+          .addComponent(estado))
+        .addContainerGap(93, Short.MAX_VALUE))
+    );
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 394, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap(47, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(jLabel1)
+            .addGap(18, 18, 18)
+            .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(panelHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(49, 49, 49))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 274, Short.MAX_VALUE)
+      .addGroup(layout.createSequentialGroup()
+        .addGap(65, 65, 65)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel1)
+          .addComponent(buscar))
+        .addGap(56, 56, 56)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(panelHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(limpiar)
+          .addComponent(guardar)
+          .addComponent(eliminar))
+        .addGap(62, 62, 62))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void rutaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rutaItemStateChanged
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_rutaItemStateChanged
+
+  private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    // TODO add your handling code here:
+    horaSalida.setText("");
+    minutosSalida.setText("");
+    horaLlegada.setText("");
+    minutosLlegada.setText("");
+
+    int idRuta = ((Ruta) ruta.getSelectedItem()).getIdRuta();
+    horariosActivos = horarioData.obtenerHorariosPorIdRuta(idRuta);
+
+    if (!horariosActivos.isEmpty()) {
+      generarTabla(horariosActivos);
+      panelTabla.setVisible(true);
+      guardar.setText("Editar");
+      limpiar.setEnabled(true);
+    } else {
+      panelTabla.setVisible(false);
+      guardar.setText("Guardar");
+      JOptionPane.showMessageDialog(this, "No se encontraron horarios para la ruta buscada");
+    }
+  }//GEN-LAST:event_buscarActionPerformed
+
+  private void tablaHorariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHorariosMouseClicked
+    // TODO add your handling code here:
+    guardar.setEnabled(true);
+    eliminar.setEnabled(true);
+    horaSalida.setText("");
+    horaLlegada.setText("");
+
+    int fila = tablaHorarios.getSelectedRow();
+    int idHorario = (int) tablaHorarios.getModel().getValueAt(fila, 0);
+
+    horarioActivo = horarioData.obtenerHorarioPorId(idHorario);
+
+    horaSalida.setText(String.valueOf(horarioActivo.getHoraSalida().getHour()));
+    minutosSalida.setText(String.valueOf(horarioActivo.getHoraSalida().getMinute()));
+
+    horaLlegada.setText(String.valueOf(horarioActivo.getHoraLlegada().getHour()));
+    minutosLlegada.setText(String.valueOf(horarioActivo.getHoraLlegada().getMinute()));
+
+    estado.setSelected(horarioActivo.isEstado());
+  }//GEN-LAST:event_tablaHorariosMouseClicked
+
+  private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+    // TODO add your handling code here:
+    limpiarCampos();
+  }//GEN-LAST:event_limpiarActionPerformed
+
+  private void minutosLlegadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minutosLlegadaActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_minutosLlegadaActionPerformed
+
+  private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_estadoItemStateChanged
+
+  private void horaLlegadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horaLlegadaKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_horaLlegadaKeyReleased
+
+  private void horaSalidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horaSalidaKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+
+    int horaDeSalida = 0;
+    int minutosDeSalida = 0;
+
+    if (esUnNumero(horaSalida.getText())) {
+      horaDeSalida = Integer.parseInt(horaSalida.getText());
+    }
+
+    if (esUnNumero(minutosSalida.getText())) {
+      minutosDeSalida = Integer.parseInt(minutosSalida.getText());
+    }
+
+    LocalTime salida = LocalTime.of(horaDeSalida, minutosDeSalida);
+    LocalTime duracion = ((Ruta) ruta.getSelectedItem()).getDuracionEstimada();
+    LocalTime llegada = salida.plusHours(duracion.getHour()).plusMinutes(duracion.getMinute());
+
+    horaLlegada.setText(String.valueOf(llegada.getHour()));
+    minutosLlegada.setText(String.valueOf(llegada.getMinute()));
+  }//GEN-LAST:event_horaSalidaKeyReleased
+
+  private void horaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaSalidaActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_horaSalidaActionPerformed
+
+  private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+    // TODO add your handling code here:
+    boolean respuesta = horarioData.borrarHorario(horarioActivo.getIdHorario());
+
+    if (respuesta) {
+      limpiarCampos();
+      JOptionPane.showMessageDialog(this, "Horario eliminado");
+    } else {
+      JOptionPane.showMessageDialog(this, "Hubo un error al intentar eliminar el horario");
+    }
+  }//GEN-LAST:event_eliminarActionPerformed
+
+  private void minutosSalidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_minutosSalidaKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+
+    int horaDeSalida = 0;
+    int minutosDeSalida = 0;
+
+    if (esUnNumero(horaSalida.getText())) {
+      horaDeSalida = Integer.parseInt(horaSalida.getText());
+    }
+
+    if (esUnNumero(minutosSalida.getText())) {
+      minutosDeSalida = Integer.parseInt(minutosSalida.getText());
+    }
+
+    LocalTime salida = LocalTime.of(horaDeSalida, minutosDeSalida);
+    LocalTime duracion = ((Ruta) ruta.getSelectedItem()).getDuracionEstimada();
+    LocalTime llegada = salida.plusHours(duracion.getHour()).plusMinutes(duracion.getMinute());
+
+    horaLlegada.setText(String.valueOf(llegada.getHour()));
+    minutosLlegada.setText(String.valueOf(llegada.getMinute()));
+  }//GEN-LAST:event_minutosSalidaKeyReleased
+
+  private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+    // TODO add your handling code here:
+    Ruta nuevaRuta = (Ruta) ruta.getSelectedItem();
+    LocalTime salida = LocalTime.of(Integer.parseInt(horaSalida.getText()), Integer.parseInt(minutosSalida.getText()));
+    LocalTime llegada = LocalTime.of(Integer.parseInt(horaLlegada.getText()), Integer.parseInt(minutosLlegada.getText()));
+    boolean estadoNuevo = this.estado.isSelected();
+
+    if (horarioActivo == null) {
+      Horario nuevoHorario = new Horario(nuevaRuta, salida, llegada, estadoNuevo);
+      boolean respuesta = horarioData.crearHorario(nuevoHorario);
+
+      if (respuesta) {
+        JOptionPane.showMessageDialog(this, "Horario creado");
+      } else {
+        JOptionPane.showMessageDialog(this, "Hubo un error al intentar crear el horario");
+      }
+    } else {
+      horarioActivo.setHoraSalida(salida);
+      horarioActivo.setHoraLlegada(llegada);
+      horarioActivo.setEstado(estado.isSelected());
+
+      boolean respuesta = horarioData.modificarHorario(horarioActivo);
+
+      if (respuesta) {
+        JOptionPane.showMessageDialog(this, "Horario actualizado");
+      } else {
+        JOptionPane.showMessageDialog(this, "Hubo un error al intentar actualizar el horario");
+      }
+    }
+
+    limpiarCampos();
+  }//GEN-LAST:event_guardarActionPerformed
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton buscar;
+  private javax.swing.JButton eliminar;
+  private javax.swing.JRadioButton estado;
+  private javax.swing.JButton guardar;
+  private javax.swing.JTextField horaLlegada;
+  private javax.swing.JTextField horaSalida;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel jLabel5;
+  private javax.swing.JLabel jLabel6;
+  private javax.swing.JLabel jLabel7;
+  private javax.swing.JLabel jLabel8;
+  private javax.swing.JLabel jLabelEstado;
+  private javax.swing.JOptionPane jOptionPane1;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JButton limpiar;
+  private javax.swing.JTextField minutosLlegada;
+  private javax.swing.JTextField minutosSalida;
+  private javax.swing.JPanel panelHorario;
+  private javax.swing.JPanel panelTabla;
+  private javax.swing.JComboBox<Ruta> ruta;
+  private javax.swing.JTable tablaHorarios;
   // End of variables declaration//GEN-END:variables
+  private Horario horarioActivo;
+  private List<Horario> horariosActivos = null;
+  private HorarioData horarioData = new HorarioData();
+  private RutaData rutaData = new RutaData();
+
+  private final DefaultTableModel modelo = new DefaultTableModel() {
+    @Override
+    public boolean isCellEditable(int row, int col) {
+      return false;
+    }
+  };
+
+  private void limpiarCampos() {
+    horarioActivo = null;
+
+    eliminar.setEnabled(false);
+    guardar.setEnabled(false);
+    horaLlegada.setEnabled(false);
+    minutosLlegada.setEnabled(false);
+    limpiar.setEnabled(false);
+    estado.setSelected(true);
+
+    panelTabla.setVisible(false);
+
+    horaSalida.setText("");
+    minutosSalida.setText("");
+    horaLlegada.setText("");
+    minutosLlegada.setText("");
+    guardar.setText("Guardar");
+//    estado.setSelected(true);
+  }
+
+  private void generarTabla(List<Horario> horarios) {
+    Tabla.limpiarTabla(modelo);
+    horarios.forEach(horario -> modelo.addRow(new Object[]{horario.getIdHorario(), horario.getHoraSalida(), horario.getHoraLlegada()}));
+  }
+
+  private void chequearCampos() {
+    //OBTENER CAMPOS
+    String textoHoraSalida = horaSalida.getText().trim();
+    String textoMinutosSalida = minutosSalida.getText().trim();
+
+    // EXPRESIONES REGULARES PARA VALIDAR DOCUMENTO, NOMBRE Y APELLIDO
+    String idRegex = "^\\d{1,8}$";
+
+    //VALIDAR CAMPOS
+    boolean horaSalidaValida = Regex.validarRegex(idRegex, textoHoraSalida);
+    boolean minutosSalidaValida = Regex.validarRegex(idRegex, textoMinutosSalida) && Integer.parseInt(textoMinutosSalida) < 60;
+
+    boolean validado = horaSalidaValida && minutosSalidaValida;
+
+    //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
+    Ruta rutaActiva = (Ruta) ruta.getSelectedItem();
+
+    if (horarioActivo == null && rutaActiva != null) {
+      buscar.setEnabled(true);
+    } else {
+      buscar.setEnabled(false);
+    }
+
+    limpiar.setEnabled(horarioActivo != null || !horaSalida.getText().equals("") || !minutosSalida.getText().equals(""));
+    eliminar.setEnabled(rutaActiva != null && horarioActivo != null);
+    guardar.setEnabled(validado);
+
+    //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
+    if (!textoHoraSalida.isEmpty() && !horaSalidaValida) {
+      JOptionPane.showMessageDialog(this, "Hora inválida (Sólo se aceptan números)");
+    } else if (!textoMinutosSalida.isEmpty() && !minutosSalidaValida) {
+      JOptionPane.showMessageDialog(this, "Minutos inválidos (Sólo se aceptan números. Valor máximo 59)");
+    }
+  }
+
+  public static boolean esUnNumero(String str) {
+    try {
+      Integer.valueOf(str);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
 }
