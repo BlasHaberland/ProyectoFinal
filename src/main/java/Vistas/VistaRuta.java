@@ -269,7 +269,7 @@ public class VistaRuta extends javax.swing.JInternalFrame {
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
     // TODO add your handling code here:
-    limpiarCampos();
+    chequearCampos();
   }//GEN-LAST:event_limpiarActionPerformed
 
   private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged

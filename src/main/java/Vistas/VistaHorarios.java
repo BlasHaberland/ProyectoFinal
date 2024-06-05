@@ -1,13 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vistas;
 
-/**
- *
- * @author alamb
- */
+import DAO.HorarioData;
+import DAO.RutaData;
+import Modelos.Horario;
+import Modelos.Ruta;
+import Utilidades.ComboBox;
+import Utilidades.Regex;
+import Utilidades.Tabla;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class VistaHorarios extends javax.swing.JInternalFrame {
 
   /**
@@ -15,6 +19,19 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
    */
   public VistaHorarios() {
     initComponents();
+
+    limpiarCampos();
+
+    panelTabla.setVisible(false);
+    CompletableFuture.supplyAsync(() -> {
+      List<Ruta> rutas = rutaData.obtenerRutas();
+
+      return rutas;
+    }).thenAccept(rutas -> {
+      ComboBox.llenar(ruta, rutas);
+    });
+
+    Tabla.crearCabeceras(tablaHorarios, modelo, new String[]{"ID", "Origen", "Destino", "Hora salida", "Hora llegada"}, new int[]{50, 200, 200, 75, 75});
   }
 
   /**
@@ -26,20 +43,353 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
+    jOptionPane1 = new javax.swing.JOptionPane();
+    ruta = new javax.swing.JComboBox<>();
+    jLabel1 = new javax.swing.JLabel();
+    panelTabla = new javax.swing.JPanel();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    tablaHorarios = new javax.swing.JTable();
+    buscar = new javax.swing.JButton();
+    limpiar = new javax.swing.JButton();
+    eliminar = new javax.swing.JButton();
+    guardar = new javax.swing.JButton();
+    panelHorario = new javax.swing.JPanel();
+    jLabel2 = new javax.swing.JLabel();
+    horaSalida = new javax.swing.JTextField();
+    jLabel3 = new javax.swing.JLabel();
+    horaLlegada = new javax.swing.JTextField();
+    jLabelEstado = new javax.swing.JLabel();
+    estado = new javax.swing.JRadioButton();
+
+    setClosable(true);
+    setTitle("Horarios");
+    setPreferredSize(new java.awt.Dimension(800, 580));
+
+    ruta.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    ruta.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        rutaItemStateChanged(evt);
+      }
+    });
+
+    jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel1.setText("Ruta:");
+
+    panelTabla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.red, java.awt.Color.red, java.awt.Color.red, java.awt.Color.red));
+
+    tablaHorarios.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    tablaHorarios.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tablaHorariosMouseClicked(evt);
+      }
+    });
+    jScrollPane1.setViewportView(tablaHorarios);
+
+    javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+    panelTabla.setLayout(panelTablaLayout);
+    panelTablaLayout.setHorizontalGroup(
+      panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelTablaLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+        .addContainerGap())
+    );
+    panelTablaLayout.setVerticalGroup(
+      panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelTablaLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+
+    buscar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    buscar.setText("Buscar");
+    buscar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        buscarActionPerformed(evt);
+      }
+    });
+
+    limpiar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    limpiar.setText("Limpiar");
+    limpiar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        limpiarActionPerformed(evt);
+      }
+    });
+
+    eliminar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    eliminar.setText("Eliminar");
+
+    guardar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    guardar.setText("Guardar");
+
+    panelHorario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.pink, java.awt.Color.pink, java.awt.Color.pink, java.awt.Color.pink));
+
+    jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel2.setText("Hora de salida:");
+
+    horaSalida.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    horaSalida.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        horaSalidaKeyReleased(evt);
+      }
+    });
+
+    jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabel3.setText("Hora de salida:");
+
+    horaLlegada.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    horaLlegada.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        horaLlegadaKeyReleased(evt);
+      }
+    });
+
+    jLabelEstado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    jLabelEstado.setText("Estado:");
+
+    estado.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        estadoItemStateChanged(evt);
+      }
+    });
+
+    javax.swing.GroupLayout panelHorarioLayout = new javax.swing.GroupLayout(panelHorario);
+    panelHorario.setLayout(panelHorarioLayout);
+    panelHorarioLayout.setHorizontalGroup(
+      panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelHorarioLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(panelHorarioLayout.createSequentialGroup()
+            .addComponent(jLabel2)
+            .addGap(18, 18, 18)
+            .addComponent(horaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(panelHorarioLayout.createSequentialGroup()
+            .addComponent(jLabel3)
+            .addGap(18, 18, 18)
+            .addComponent(horaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(244, 244, 244)
+        .addComponent(jLabelEstado)
+        .addGap(18, 18, 18)
+        .addComponent(estado)
+        .addContainerGap(122, Short.MAX_VALUE))
+    );
+    panelHorarioLayout.setVerticalGroup(
+      panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelHorarioLayout.createSequentialGroup()
+        .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(panelHorarioLayout.createSequentialGroup()
+            .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel2)
+              .addComponent(horaSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel3)
+              .addComponent(horaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addGroup(panelHorarioLayout.createSequentialGroup()
+            .addGap(25, 25, 25)
+            .addGroup(panelHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+              .addComponent(estado)
+              .addComponent(jLabelEstado))))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 394, Short.MAX_VALUE)
+      .addGroup(layout.createSequentialGroup()
+        .addGap(52, 52, 52)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jLabel1)
+            .addGap(67, 67, 67)
+            .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(45, 45, 45)
+            .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap(50, Short.MAX_VALUE))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(panelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 274, Short.MAX_VALUE)
+      .addGroup(layout.createSequentialGroup()
+        .addContainerGap(108, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel1)
+          .addComponent(buscar))
+        .addGap(18, 18, 18)
+        .addComponent(panelHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(40, 40, 40)
+        .addComponent(panelTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(71, 71, 71)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(limpiar)
+          .addComponent(guardar)
+          .addComponent(eliminar))
+        .addGap(62, 62, 62))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void rutaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rutaItemStateChanged
+    // TODO add your handling code here:
+  }//GEN-LAST:event_rutaItemStateChanged
+
+  private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    // TODO add your handling code here:
+    int idRuta = ((Ruta) ruta.getSelectedItem()).getIdRuta();
+    horariosActivos = horarioData.obtenerHorariosPorIdRuta(idRuta);
+
+    if (!horariosActivos.isEmpty()) {
+      generarTabla(horariosActivos);
+      panelTabla.setVisible(true);
+      panelHorario.setVisible(false);
+      guardar.setText("Editar");
+    } else {
+      panelTabla.setVisible(false);
+      panelHorario.setVisible(true);
+      guardar.setText("Guardar");
+      JOptionPane.showMessageDialog(this, "No se encontraron horarios para la ruta buscada");
+    }
+  }//GEN-LAST:event_buscarActionPerformed
+
+  private void tablaHorariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHorariosMouseClicked
+    // TODO add your handling code here:
+    int fila = tablaHorarios.getSelectedRow();
+    int idHorario = (int) tablaHorarios.getModel().getValueAt(fila, 0);
+
+    horarioActivo = horarioData.obtenerHorarioPorId(idHorario);
+
+    System.out.println("HORARIO ACTIVO: " + horarioActivo);
+  }//GEN-LAST:event_tablaHorariosMouseClicked
+
+  private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_limpiarActionPerformed
+
+  private void horaSalidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horaSalidaKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_horaSalidaKeyReleased
+
+  private void horaLlegadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horaLlegadaKeyReleased
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_horaLlegadaKeyReleased
+
+  private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
+    // TODO add your handling code here:
+    chequearCampos();
+  }//GEN-LAST:event_estadoItemStateChanged
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton buscar;
+  private javax.swing.JButton eliminar;
+  private javax.swing.JRadioButton estado;
+  private javax.swing.JButton guardar;
+  private javax.swing.JTextField horaLlegada;
+  private javax.swing.JTextField horaSalida;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabelEstado;
+  private javax.swing.JOptionPane jOptionPane1;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JButton limpiar;
+  private javax.swing.JPanel panelHorario;
+  private javax.swing.JPanel panelTabla;
+  private javax.swing.JComboBox<Ruta> ruta;
+  private javax.swing.JTable tablaHorarios;
   // End of variables declaration//GEN-END:variables
+  private Horario horarioActivo = null;
+  private List<Horario> horariosActivos = null;
+  private HorarioData horarioData = new HorarioData();
+  private RutaData rutaData = new RutaData();
+
+  private final DefaultTableModel modelo = new DefaultTableModel() {
+    @Override
+    public boolean isCellEditable(int row, int col) {
+      return false;
+    }
+  };
+
+  private void limpiarCampos() {
+    horarioActivo = null;
+    horaLlegada.setEnabled(false);
+
+    limpiar.setEnabled(false);
+    eliminar.setEnabled(false);
+    guardar.setEnabled(false);
+    buscar.setEnabled(true);
+
+    horaSalida.setText("");
+    horaLlegada.setText("");
+    guardar.setText("Guardar");
+    estado.setSelected(true);
+  }
+
+  private void generarTabla(List<Horario> horarios) {
+    // botonInscribir.setEnabled(false);
+    // botonAnularInscripcion.setEnabled(false);
+
+    Tabla.limpiarTabla(modelo);
+
+    // InscripcionData inscripcionData = new InscripcionData();
+    horarios.forEach(horario -> modelo.addRow(new Object[]{horario.getIdHorario(), horario.getRuta().getOrigen(), horario.getRuta().getDestino(), horario.getHoraSalida(), horario.getHoraLlegada()}));
+  }
+
+  private void chequearCampos() {
+    //OBTENER CAMPOS
+    String textoHoraSalida = horaSalida.getText().trim();
+
+    // EXPRESIONES REGULARES PARA VALIDAR DOCUMENTO, NOMBRE Y APELLIDO
+    String idRegex = "^\\d{1,8}$";
+
+    //VALIDAR CAMPOS
+    boolean horaSalidaValida = Regex.validarRegex(idRegex, textoHoraSalida);
+
+    boolean validado = horaSalidaValida;
+
+    //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
+    Ruta rutaActiva = (Ruta) ruta.getSelectedItem();
+
+//    if (horarioActivo == null && rutaActiva != null) {
+//      buscar.setEnabled(true);
+//    } else {
+//      buscar.setEnabled(false);
+//    }
+    limpiar.setEnabled(rutaActiva != null || !horaSalida.getText().equals(""));
+    eliminar.setEnabled(rutaActiva != null);
+    guardar.setEnabled(validado);
+
+    //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
+    if (!textoHoraSalida.isEmpty() && !horaSalidaValida) {
+      JOptionPane.showMessageDialog(this, "Hora inválida (Sólo se aceptan números. Mínimo 1 dígito)");
+    }
+  }
 }
