@@ -50,7 +50,7 @@ public class HorarioData {
   }
 
   public Horario obtenerHorarioPorId(int id) {
-    Horario horario = new Horario();
+    Horario horario = null;
 
     try {
       String sql = "SELECT * FROM horario WHERE id_horario = ?;";
