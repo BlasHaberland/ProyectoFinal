@@ -38,7 +38,8 @@ public class Escritorio extends javax.swing.JFrame {
     jMenu1 = new javax.swing.JMenu();
     menuCrearPasajero = new javax.swing.JMenuItem();
     jMenu2 = new javax.swing.JMenu();
-    jMenu3 = new javax.swing.JMenu();
+    jMenuItem3 = new javax.swing.JMenu();
+    menuCrearRuta = new javax.swing.JMenuItem();
     jMenu4 = new javax.swing.JMenu();
     jMenu5 = new javax.swing.JMenu();
     menuCrearCiudad = new javax.swing.JMenuItem();
@@ -62,11 +63,6 @@ public class Escritorio extends javax.swing.JFrame {
 
     jMenu1.setText("Pasajeros");
     jMenu1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-    jMenu1.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        jMenu1ActionPerformed(evt);
-      }
-    });
 
     menuCrearPasajero.setText("Crear/Editar");
     menuCrearPasajero.addActionListener(new java.awt.event.ActionListener() {
@@ -82,9 +78,18 @@ public class Escritorio extends javax.swing.JFrame {
     jMenu2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     jMenuBar1.add(jMenu2);
 
-    jMenu3.setText("Rutas");
-    jMenu3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-    jMenuBar1.add(jMenu3);
+    jMenuItem3.setText("Rutas");
+    jMenuItem3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+    menuCrearRuta.setText("Crear/Editar");
+    menuCrearRuta.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuCrearRutaActionPerformed(evt);
+      }
+    });
+    jMenuItem3.add(menuCrearRuta);
+
+    jMenuBar1.add(jMenuItem3);
 
     jMenu4.setText("Horarios");
     jMenu4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -129,15 +134,17 @@ public class Escritorio extends javax.swing.JFrame {
     cargarVista(vista);
   }//GEN-LAST:event_menuCrearCiudadActionPerformed
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-    // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu1ActionPerformed
-
     private void menuCrearPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearPasajeroActionPerformed
     // TODO add your handling code here:
     VistaPasajero vista = new VistaPasajero();
     cargarVista(vista);
     }//GEN-LAST:event_menuCrearPasajeroActionPerformed
+
+  private void menuCrearRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearRutaActionPerformed
+    // TODO add your handling code here:
+    VistaRuta vista = new VistaRuta();
+    cargarVista(vista);
+  }//GEN-LAST:event_menuCrearRutaActionPerformed
 
   /**
    * @param args the command line arguments
@@ -184,12 +191,13 @@ public class Escritorio extends javax.swing.JFrame {
   private javax.swing.JDesktopPane escritorio;
   private javax.swing.JMenu jMenu1;
   private javax.swing.JMenu jMenu2;
-  private javax.swing.JMenu jMenu3;
   private javax.swing.JMenu jMenu4;
   private javax.swing.JMenu jMenu5;
   private javax.swing.JMenuBar jMenuBar1;
+  private javax.swing.JMenu jMenuItem3;
   private javax.swing.JMenuItem menuCrearCiudad;
   private javax.swing.JMenuItem menuCrearPasajero;
+  private javax.swing.JMenuItem menuCrearRuta;
   private javax.swing.JMenu menuSalir;
   // End of variables declaration//GEN-END:variables
 
