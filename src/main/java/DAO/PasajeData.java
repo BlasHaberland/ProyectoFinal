@@ -187,7 +187,7 @@ public class PasajeData {
     return exito;
   }
 
-  public int obtenerLugaresLibres(int idRuta, int idHorario, int idColectivo) {
+  public int obtenerLugaresLibres(int idRuta, String fecha, int idHorario, int idColectivo) {
     int pasajesLibres = 0;
 
     try {
@@ -204,6 +204,7 @@ public class PasajeData {
                                pasaje
                            WHERE
                                id_ruta = ? AND
+                               fecha_viaje = ? AND
                                estado = 1
                            GROUP BY
                                id_colectivo
@@ -216,10 +217,10 @@ public class PasajeData {
                    """;
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setInt(1, idRuta);
-      ps.setInt(2, idRuta);
-      ps.setInt(3, idColectivo);
+      ps.setString(2, fecha);
+      ps.setInt(3, idRuta);
       ps.setInt(4, idHorario);
-      System.out.println(ps);
+      ps.setInt(5, idColectivo);
       ResultSet rs = ps.executeQuery();
 
       if (rs.next()) {

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RutaData {
@@ -48,6 +49,10 @@ public class RutaData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
+    System.out.println("aca");
+    Collections.sort(rutas);
+
     return rutas;
   }
 

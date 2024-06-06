@@ -1,6 +1,6 @@
 package Vistas;
 
-import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatSpacegrayIJTheme;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
@@ -37,6 +37,7 @@ public class Escritorio extends javax.swing.JFrame {
     jMenuBar1 = new javax.swing.JMenuBar();
     jMenu6 = new javax.swing.JMenu();
     menuVentaPasajes = new javax.swing.JMenuItem();
+    menuConsultarPasajes = new javax.swing.JMenuItem();
     jMenu1 = new javax.swing.JMenu();
     menuCrearPasajero = new javax.swing.JMenuItem();
     jMenu2 = new javax.swing.JMenu();
@@ -75,6 +76,14 @@ public class Escritorio extends javax.swing.JFrame {
       }
     });
     jMenu6.add(menuVentaPasajes);
+
+    menuConsultarPasajes.setText("Consultar");
+    menuConsultarPasajes.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        menuConsultarPasajesActionPerformed(evt);
+      }
+    });
+    jMenu6.add(menuConsultarPasajes);
 
     jMenuBar1.add(jMenu6);
 
@@ -208,6 +217,12 @@ public class Escritorio extends javax.swing.JFrame {
     cargarVista(vista);
   }//GEN-LAST:event_menuVentaPasajesActionPerformed
 
+  private void menuConsultarPasajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarPasajesActionPerformed
+    // TODO add your handling code here:
+    VistaConsultarPasajes vista = new VistaConsultarPasajes();
+    cargarVista(vista);
+  }//GEN-LAST:event_menuConsultarPasajesActionPerformed
+
   /**
    * @param args the command line arguments
    */
@@ -236,7 +251,7 @@ public class Escritorio extends javax.swing.JFrame {
     //</editor-fold>
 
     try {
-      FlatDraculaIJTheme.setup();
+      FlatSpacegrayIJTheme.setup();
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
@@ -259,6 +274,7 @@ public class Escritorio extends javax.swing.JFrame {
   private javax.swing.JMenu jMenu6;
   private javax.swing.JMenuBar jMenuBar1;
   private javax.swing.JMenuItem jMenuItem1;
+  private javax.swing.JMenuItem menuConsultarPasajes;
   private javax.swing.JMenuItem menuCrearCiudad;
   private javax.swing.JMenuItem menuCrearPasajero;
   private javax.swing.JMenuItem menuCrearRutas;

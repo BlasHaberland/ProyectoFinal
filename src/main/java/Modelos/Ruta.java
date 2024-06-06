@@ -2,7 +2,7 @@ package Modelos;
 
 import java.time.LocalTime;
 
-public class Ruta {
+public class Ruta implements Comparable<Ruta> {
 
   private int idRuta;
   private Ciudad origen;
@@ -71,5 +71,10 @@ public class Ruta {
   @Override
   public String toString() {
     return origen + " - " + destino;
+  }
+
+  @Override
+  public int compareTo(Ruta o) {
+    return this.origen.getNombre().compareTo(o.origen.getNombre());
   }
 }
