@@ -106,6 +106,35 @@ public class HorarioData {
     return horarios;
   }
 
+  public List<Horario> obtenerHorariosActivosPorIdRuta(int id) {
+    List<Horario> horarios = new ArrayList<>();
+
+    try {
+      String sql = "SELECT * FROM horario WHERE estado = 1 AND id_ruta = ?;";
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setInt(1, id);
+      ResultSet rs = ps.executeQuery();
+
+      while (rs.next()) {
+        int idHorario = rs.getInt("id_horario");
+        int idRuta = rs.getInt("id_ruta");
+        Ruta ruta = this.rutaData.obtenerRutaPorId(idRuta);
+        LocalTime horaSalida = rs.getTime("hora_salida").toLocalTime();
+        LocalTime horaLlegada = rs.getTime("hora_llegada").toLocalTime();
+        boolean estado = rs.getBoolean("estado");
+
+        Horario horario = new Horario(idHorario, ruta, horaSalida, horaLlegada, estado);
+        horarios.add(horario);
+      }
+
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
+    }
+
+    return horarios;
+  }
+
   public boolean crearHorario(Horario horario) {
     boolean exito = false;
 

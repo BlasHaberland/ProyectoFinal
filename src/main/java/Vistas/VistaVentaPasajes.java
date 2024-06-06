@@ -1,13 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vistas;
 
-/**
- *
- * @author alamb
- */
+import DAO.ColectivoData;
+import DAO.HorarioData;
+import DAO.PasajeData;
+import DAO.PasajeroData;
+import DAO.RutaData;
+import Modelos.Colectivo;
+import Modelos.Horario;
+import Modelos.Pasajero;
+import Modelos.Ruta;
+import Utilidades.Tabla;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class VistaVentaPasajes extends javax.swing.JInternalFrame {
 
   /**
@@ -15,6 +23,29 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
    */
   public VistaVentaPasajes() {
     initComponents();
+
+    limpiarCampos();
+
+    Tabla.crearCabeceras(tablaRutas, modeloRutas, new String[]{"ID", "Origen", "Destino",}, new int[]{50, 200, 200});
+    Tabla.crearCabeceras(tablaHorarios, modeloHorarios, new String[]{"ID", "Salida", "Llegada",}, new int[]{50, 200, 200});
+    Tabla.crearCabeceras(tablaColectivos, modeloColectivos, new String[]{"ID", "Matrícula", "Marca", "Capacidad"}, new int[]{50, 100, 150, 150});
+    Tabla.crearCabeceras(tablaPasajeros, modeloPasajeros, new String[]{"ID", "DNI", "Apellido", "Nombre"}, new int[]{50, 100, 150, 150});
+
+    CompletableFuture.supplyAsync(() -> {
+      List<Ruta> rutas = rutaData.obtenerRutas();
+
+      return rutas;
+    }).thenAccept(rutas -> {
+      generarTablaRutas(rutas);
+    });
+
+    CompletableFuture.supplyAsync(() -> {
+      List<Colectivo> colectivos = colectivoData.obtenerColectivos();
+
+      return colectivos;
+    }).thenAccept(colectivos -> {
+      generarTablaColectivos(colectivos);
+    });
   }
 
   /**
@@ -26,20 +57,572 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
+    panelRutas = new javax.swing.JPanel();
+    jLabel5 = new javax.swing.JLabel();
+    jScrollPane4 = new javax.swing.JScrollPane();
+    tablaRutas = new javax.swing.JTable();
+    panelHorarios = new javax.swing.JPanel();
+    jScrollPane3 = new javax.swing.JScrollPane();
+    tablaHorarios = new javax.swing.JTable();
+    jLabel6 = new javax.swing.JLabel();
+    panelColectivo = new javax.swing.JPanel();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    tablaColectivos = new javax.swing.JTable();
+    jLabel4 = new javax.swing.JLabel();
+    panelPasajeros = new javax.swing.JPanel();
+    buscarDNI = new javax.swing.JTextField();
+    buscar = new javax.swing.JButton();
+    jLabel1 = new javax.swing.JLabel();
+    jLabel7 = new javax.swing.JLabel();
+    panelSeleccionPasajero = new javax.swing.JPanel();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    tablaPasajeros = new javax.swing.JTable();
+    jLabel3 = new javax.swing.JLabel();
+    buscarApellido = new javax.swing.JTextField();
+    buscar2 = new javax.swing.JButton();
+    jLabel2 = new javax.swing.JLabel();
+    panelAsientosDisponibles = new javax.swing.JPanel();
+    jLabel9 = new javax.swing.JLabel();
+    pasajesLibres = new javax.swing.JLabel();
+
+    setClosable(true);
+    setTitle("Venta");
+    setPreferredSize(new java.awt.Dimension(800, 580));
+
+    panelRutas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
+    jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel5.setText("Seleccionar un Ruta:");
+
+    tablaRutas.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    tablaRutas.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tablaRutasMouseClicked(evt);
+      }
+    });
+    jScrollPane4.setViewportView(tablaRutas);
+
+    javax.swing.GroupLayout panelRutasLayout = new javax.swing.GroupLayout(panelRutas);
+    panelRutas.setLayout(panelRutasLayout);
+    panelRutasLayout.setHorizontalGroup(
+      panelRutasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelRutasLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelRutasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
+        .addContainerGap())
+    );
+    panelRutasLayout.setVerticalGroup(
+      panelRutasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRutasLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel5)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+        .addContainerGap())
+    );
+
+    panelHorarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
+    tablaHorarios.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    tablaHorarios.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tablaHorariosMouseClicked(evt);
+      }
+    });
+    jScrollPane3.setViewportView(tablaHorarios);
+
+    jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel6.setText("Seleccione un horario:");
+
+    javax.swing.GroupLayout panelHorariosLayout = new javax.swing.GroupLayout(panelHorarios);
+    panelHorarios.setLayout(panelHorariosLayout);
+    panelHorariosLayout.setHorizontalGroup(
+      panelHorariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelHorariosLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelHorariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+          .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap())
+    );
+    panelHorariosLayout.setVerticalGroup(
+      panelHorariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHorariosLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel6)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap())
+    );
+
+    panelColectivo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
+    tablaColectivos.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    tablaColectivos.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tablaColectivosMouseClicked(evt);
+      }
+    });
+    jScrollPane2.setViewportView(tablaColectivos);
+
+    jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel4.setText("Seleccione un colectivo:");
+
+    javax.swing.GroupLayout panelColectivoLayout = new javax.swing.GroupLayout(panelColectivo);
+    panelColectivo.setLayout(panelColectivoLayout);
+    panelColectivoLayout.setHorizontalGroup(
+      panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelColectivoLayout.createSequentialGroup()
+        .addGroup(panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(panelColectivoLayout.createSequentialGroup()
+            .addGap(14, 14, 14)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE))
+          .addGroup(panelColectivoLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+        .addContainerGap())
+    );
+    panelColectivoLayout.setVerticalGroup(
+      panelColectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelColectivoLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel4)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+
+    panelPasajeros.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
+    buscarDNI.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+    buscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    buscar.setText("Buscar");
+    buscar.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        buscarActionPerformed(evt);
+      }
+    });
+
+    jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel1.setText("Por DNI:");
+
+    jLabel7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel7.setText("Buscar pasajero:");
+
+    tablaPasajeros.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    tablaPasajeros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    tablaPasajeros.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tablaPasajerosMouseClicked(evt);
+      }
+    });
+    jScrollPane1.setViewportView(tablaPasajeros);
+
+    jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel3.setText("Seleccione un pasajero:");
+
+    javax.swing.GroupLayout panelSeleccionPasajeroLayout = new javax.swing.GroupLayout(panelSeleccionPasajero);
+    panelSeleccionPasajero.setLayout(panelSeleccionPasajeroLayout);
+    panelSeleccionPasajeroLayout.setHorizontalGroup(
+      panelSeleccionPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelSeleccionPasajeroLayout.createSequentialGroup()
+        .addGroup(panelSeleccionPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addGroup(panelSeleccionPasajeroLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+        .addContainerGap())
+    );
+    panelSeleccionPasajeroLayout.setVerticalGroup(
+      panelSeleccionPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSeleccionPasajeroLayout.createSequentialGroup()
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(jLabel3)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap())
+    );
+
+    buscarApellido.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+    buscar2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    buscar2.setText("Buscar");
+    buscar2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        buscar2ActionPerformed(evt);
+      }
+    });
+
+    jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+    jLabel2.setText("Por nombre:");
+
+    javax.swing.GroupLayout panelPasajerosLayout = new javax.swing.GroupLayout(panelPasajeros);
+    panelPasajeros.setLayout(panelPasajerosLayout);
+    panelPasajerosLayout.setHorizontalGroup(
+      panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPasajerosLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addComponent(panelSeleccionPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPasajerosLayout.createSequentialGroup()
+            .addGroup(panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel1)
+              .addComponent(jLabel2))
+            .addGap(18, 18, 18)
+            .addGroup(panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(buscarApellido)
+              .addComponent(buscarDNI))
+            .addGap(18, 18, 18)
+            .addGroup(panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(buscar, javax.swing.GroupLayout.Alignment.TRAILING)
+              .addComponent(buscar2, javax.swing.GroupLayout.Alignment.TRAILING))))
+        .addContainerGap())
+    );
+    panelPasajerosLayout.setVerticalGroup(
+      panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelPasajerosLayout.createSequentialGroup()
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(jLabel7)
+        .addGap(4, 4, 4)
+        .addGroup(panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(buscarDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel1)
+          .addComponent(buscar))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addGroup(panelPasajerosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(buscarApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(buscar2)
+          .addComponent(jLabel2))
+        .addGap(18, 18, 18)
+        .addComponent(panelSeleccionPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap())
+    );
+
+    panelAsientosDisponibles.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(100, 100, 100)));
+
+    jLabel9.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+    jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel9.setText("Asientos disponibles:");
+
+    pasajesLibres.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+    pasajesLibres.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    pasajesLibres.setText("--");
+
+    javax.swing.GroupLayout panelAsientosDisponiblesLayout = new javax.swing.GroupLayout(panelAsientosDisponibles);
+    panelAsientosDisponibles.setLayout(panelAsientosDisponiblesLayout);
+    panelAsientosDisponiblesLayout.setHorizontalGroup(
+      panelAsientosDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelAsientosDisponiblesLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jLabel9)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+        .addComponent(pasajesLibres, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap())
+    );
+    panelAsientosDisponiblesLayout.setVerticalGroup(
+      panelAsientosDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(panelAsientosDisponiblesLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(panelAsientosDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(panelAsientosDisponiblesLayout.createSequentialGroup()
+            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(6, 6, 6))
+          .addComponent(pasajesLibres, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(115, Short.MAX_VALUE))
+    );
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 394, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(panelRutas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(panelColectivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(panelHorarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(panelPasajeros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(panelAsientosDisponibles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap())
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 274, Short.MAX_VALUE)
+      .addGroup(layout.createSequentialGroup()
+        .addGap(14, 14, 14)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(panelPasajeros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(panelRutas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(panelHorarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(panelColectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(17, 17, 17))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(panelAsientosDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap())))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    // TODO add your handling code here:
+    int dni = Integer.parseInt(buscarDNI.getText());
+
+    Pasajero pasajero = pasajeroData.obtenerPasajeroActivoPorDni(dni);
+
+    if (pasajero != null) {
+      List<Pasajero> pasajeros = new ArrayList<>();
+      pasajeros.add(pasajero);
+
+      generarTablaPasajeros(pasajeros);
+      panelSeleccionPasajero.setVisible(true);
+    } else {
+      panelSeleccionPasajero.setVisible(false);
+      JOptionPane.showMessageDialog(this, "No se encontraron pasajeros activos con el dni buscado");
+    }
+  }//GEN-LAST:event_buscarActionPerformed
+
+  private void tablaPasajerosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPasajerosMouseClicked
+    // TODO add your handling code here:
+    int fila = tablaPasajeros.getSelectedRow();
+    int idPasajero = (int) tablaPasajeros.getModel().getValueAt(fila, 0);
+
+    pasajeroActivo = pasajeroData.obtenerPasajeroPorId(idPasajero);
+    System.out.println(pasajeroActivo);
+  }//GEN-LAST:event_tablaPasajerosMouseClicked
+
+  private void tablaRutasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRutasMouseClicked
+    // TODO add your handling code here:
+    horarioActivo = null;
+    colectivoActivo = null;
+    tablaColectivos.getSelectionModel().clearSelection();
+    pasajesLibres.setText("--");
+
+    int fila = tablaRutas.getSelectedRow();
+    int idRuta = (int) tablaRutas.getModel().getValueAt(fila, 0);
+
+    rutaActiva = rutaData.obtenerRutaPorId(idRuta);
+    List<Horario> horarios = horarioData.obtenerHorariosActivosPorIdRuta(idRuta);
+
+    if (!horarios.isEmpty()) {
+      generarTablaHorarios(horarios);
+    } else {
+      Tabla.limpiarTabla(modeloHorarios);
+      //JOptionPane.showMessageDialog(this, "No se encontraron horarios activos para la ruta");
+    }
+
+    fede();
+  }//GEN-LAST:event_tablaRutasMouseClicked
+
+  private void tablaHorariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHorariosMouseClicked
+    // TODO add your handling code here:
+    colectivoActivo = null;
+    tablaColectivos.getSelectionModel().clearSelection();
+    pasajesLibres.setText("--");
+
+    int fila = tablaHorarios.getSelectedRow();
+    int idHorario = (int) tablaHorarios.getModel().getValueAt(fila, 0);
+
+    horarioActivo = horarioData.obtenerHorarioPorId(idHorario);
+
+    fede();
+  }//GEN-LAST:event_tablaHorariosMouseClicked
+
+  private void tablaColectivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaColectivosMouseClicked
+    // TODO add your handling code here:
+    int fila = tablaColectivos.getSelectedRow();
+    int idColectivo = (int) tablaColectivos.getModel().getValueAt(fila, 0);
+
+    CompletableFuture.supplyAsync(() -> {
+      colectivoActivo = colectivoData.obtenerColectivoPorId(idColectivo);
+
+      return colectivoActivo;
+    }).thenAccept(colectivos -> {
+      fede();
+    });
+  }//GEN-LAST:event_tablaColectivosMouseClicked
+
+  private void buscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar2ActionPerformed
+    // TODO add your handling code here:
+    List<Pasajero> pasajeros = pasajeroData.obtenerPasajerosActivosPorApellido(buscarApellido.getText());
+
+    if (!pasajeros.isEmpty()) {
+      generarTablaPasajeros(pasajeros);
+      panelSeleccionPasajero.setVisible(true);
+    } else {
+      panelSeleccionPasajero.setVisible(false);
+      JOptionPane.showMessageDialog(this, "No se encontraron pasajeros activos con el dni buscado");
+    }
+  }//GEN-LAST:event_buscar2ActionPerformed
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton buscar;
+  private javax.swing.JButton buscar2;
+  private javax.swing.JTextField buscarApellido;
+  private javax.swing.JTextField buscarDNI;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel jLabel5;
+  private javax.swing.JLabel jLabel6;
+  private javax.swing.JLabel jLabel7;
+  private javax.swing.JLabel jLabel9;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JScrollPane jScrollPane3;
+  private javax.swing.JScrollPane jScrollPane4;
+  private javax.swing.JPanel panelAsientosDisponibles;
+  private javax.swing.JPanel panelColectivo;
+  private javax.swing.JPanel panelHorarios;
+  private javax.swing.JPanel panelPasajeros;
+  private javax.swing.JPanel panelRutas;
+  private javax.swing.JPanel panelSeleccionPasajero;
+  private javax.swing.JLabel pasajesLibres;
+  private javax.swing.JTable tablaColectivos;
+  private javax.swing.JTable tablaHorarios;
+  private javax.swing.JTable tablaPasajeros;
+  private javax.swing.JTable tablaRutas;
   // End of variables declaration//GEN-END:variables
+  private RutaData rutaData = new RutaData();
+  private ColectivoData colectivoData = new ColectivoData();
+  private HorarioData horarioData = new HorarioData();
+  private PasajeroData pasajeroData = new PasajeroData();
+  private PasajeData pasajeData = new PasajeData();
+
+  private Ruta rutaActiva;
+  private Horario horarioActivo;
+  private Colectivo colectivoActivo;
+  private Pasajero pasajeroActivo;
+
+  private void limpiarCampos() {
+    rutaActiva = null;
+    horarioActivo = null;
+    colectivoActivo = null;
+    pasajeroActivo = null;
+
+    //panelPasajero.setVisible(false);
+    //panelColectivo.setVisible(false);
+  }
+
+  private void fede() {
+    if (horarioActivo != null && rutaActiva != null && colectivoActivo != null) {
+      int idRutaActiva = rutaActiva.getIdRuta();
+      int idHorarioActivo = horarioActivo.getIdHorario();
+      int idColectivoActivo = colectivoActivo.getIdColectivo();
+      int pLibres = pasajeData.obtenerLugaresLibres(idRutaActiva, idHorarioActivo, idColectivoActivo);
+      System.out.println("***************FEDE");
+      System.out.println(idRutaActiva);
+      System.out.println(idHorarioActivo);
+      System.out.println(idColectivoActivo);
+      System.out.println(pLibres);
+      System.out.println("***************FEDE");
+
+      pasajesLibres.setText(String.valueOf(pLibres));
+    } else {
+      pasajesLibres.setText(String.valueOf("--"));
+    }
+  }
+
+  private void generarTablaRutas(List<Ruta> rutas) {
+    Tabla.limpiarTabla(modeloRutas);
+    rutas.forEach(ruta -> modeloRutas.addRow(new Object[]{ruta.getIdRuta(), ruta.getOrigen().getNombre() + " (" + ruta.getOrigen().getProvincia() + ")", ruta.getDestino().getNombre() + " (" + ruta.getDestino().getProvincia() + ")"}));
+  }
+
+  private void generarTablaColectivos(List<Colectivo> colectivos) {
+    Tabla.limpiarTabla(modeloColectivos);
+    colectivos.forEach(colectivo -> modeloColectivos.addRow(new Object[]{colectivo.getIdColectivo(), colectivo.getMatricula(), colectivo.getMarca(), colectivo.getCapacidad()}));
+  }
+
+  private void generarTablaHorarios(List<Horario> horarios) {
+    Tabla.limpiarTabla(modeloHorarios);
+    horarios.forEach(horario -> modeloHorarios.addRow(new Object[]{horario.getIdHorario(), horario.getHoraSalida(), horario.getHoraLlegada()}));
+  }
+
+  private void generarTablaPasajeros(List<Pasajero> pasajeros) {
+    Tabla.limpiarTabla(modeloPasajeros);
+    pasajeros.forEach(pasajero -> modeloPasajeros.addRow(new Object[]{pasajero.getIdPasajero(), pasajero.getDni(), pasajero.getApellido(), pasajero.getNombre()}));
+  }
+
+  private final DefaultTableModel modeloRutas = new DefaultTableModel() {
+    @Override
+    public boolean isCellEditable(int row, int col) {
+      return false;
+    }
+  };
+
+  private final DefaultTableModel modeloHorarios = new DefaultTableModel() {
+    @Override
+    public boolean isCellEditable(int row, int col) {
+      return false;
+    }
+  };
+
+  private final DefaultTableModel modeloColectivos = new DefaultTableModel() {
+    @Override
+    public boolean isCellEditable(int row, int col) {
+      return false;
+    }
+  };
+
+  private final DefaultTableModel modeloPasajeros = new DefaultTableModel() {
+    @Override
+    public boolean isCellEditable(int row, int col) {
+      return false;
+    }
+  };
 }

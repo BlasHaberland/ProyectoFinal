@@ -187,6 +187,53 @@ public class PasajeData {
     return exito;
   }
 
+  public int obtenerLugaresLibres(int idRuta, int idHorario, int idColectivo) {
+    int pasajesLibres = 0;
+
+    try {
+      String sql = """
+                   SELECT
+                           colectivo.capacidad - COALESCE(ocupados.pasajes_ocupados, 0) AS pasajes_libres
+                       FROM
+                           colectivo
+                       LEFT JOIN (
+                           SELECT
+                               id_colectivo,
+                               COUNT(id_pasaje) AS pasajes_ocupados
+                           FROM
+                               pasaje
+                           WHERE
+                               id_ruta = ? AND
+                               estado = 1
+                           GROUP BY
+                               id_colectivo
+                       ) AS ocupados ON colectivo.id_colectivo = ocupados.id_colectivo
+                       JOIN
+                           horario ON horario.id_ruta = ?
+                       WHERE
+                           horario.id_horario = ? AND
+                           colectivo.id_colectivo = ?;
+                   """;
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setInt(1, idRuta);
+      ps.setInt(2, idRuta);
+      ps.setInt(3, idColectivo);
+      ps.setInt(4, idHorario);
+      System.out.println(ps);
+      ResultSet rs = ps.executeQuery();
+
+      if (rs.next()) {
+        pasajesLibres = rs.getInt("pasajes_libres");
+      }
+
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
+    }
+
+    return pasajesLibres;
+  }
+
   public boolean borrarPasaje(int id) {
     boolean exito = false;
 

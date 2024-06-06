@@ -24,6 +24,7 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
     limpiarCampos();
 
     panelTabla.setVisible(false);
+
     CompletableFuture.supplyAsync(() -> {
       List<Ruta> rutas = rutaData.obtenerRutas();
 

@@ -46,6 +46,36 @@ public class PasajeroData {
     return pasajeros;
   }
 
+  public List<Pasajero> obtenerPasajerosActivosPorApellido(String apellidoABuscar) {
+    List<Pasajero> pasajeros = new ArrayList<>();
+
+    try {
+      String sql = "SELECT * FROM pasajero WHERE apeliido LIKE ?;";
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setString(1, "%" + apellidoABuscar + "%");
+      ResultSet rs = ps.executeQuery();
+
+      while (rs.next()) {
+        System.out.println(rs);
+        int idPasajero = rs.getInt("id_pasajero");
+        String nombre = rs.getString("nombre");
+        String apellido = rs.getString("apeliido");
+        int dni = rs.getInt("dni");
+        String correo = rs.getString("correo");
+        String telefono = rs.getString("telefono");
+        boolean estado = rs.getBoolean("estado");
+
+        Pasajero pasajero = new Pasajero(idPasajero, nombre, apellido, dni, correo, telefono, estado);
+        pasajeros.add(pasajero);
+      }
+
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
+    }
+    return pasajeros;
+  }
+
   public Pasajero obtenerPasajeroPorId(int id) {
     Pasajero pasajero = null;
 
@@ -80,6 +110,35 @@ public class PasajeroData {
 
     try {
       String sql = "SELECT * FROM pasajero WHERE dni = ?;";
+      PreparedStatement ps = connection.prepareStatement(sql);
+      ps.setInt(1, dniPasajero);
+      ResultSet rs = ps.executeQuery();
+
+      while (rs.next()) {
+        int idPasajero = rs.getInt("id_pasajero");
+        String nombre = rs.getString("nombre");
+        String apellido = rs.getString("apeliido");
+        int dni = rs.getInt("dni");
+        String correo = rs.getString("correo");
+        String telefono = rs.getString("telefono");
+        boolean estado = rs.getBoolean("estado");
+
+        pasajero = new Pasajero(idPasajero, nombre, apellido, dni, correo, telefono, estado);
+
+      }
+
+      ps.close();
+    } catch (SQLException e) {
+      System.err.println(e);
+    }
+    return pasajero;
+  }
+
+  public Pasajero obtenerPasajeroActivoPorDni(int dniPasajero) {
+    Pasajero pasajero = null;
+
+    try {
+      String sql = "SELECT * FROM pasajero WHERE estado = 1 AND dni = ?;";
       PreparedStatement ps = connection.prepareStatement(sql);
       ps.setInt(1, dniPasajero);
       ResultSet rs = ps.executeQuery();

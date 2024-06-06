@@ -46,6 +46,34 @@ public class ColectivoData {
     return colectivos;
   }
 
+  public List<Colectivo> obtenerColectivosActivos() {
+    List<Colectivo> colectivos = new ArrayList<>();
+
+    try {
+      String sql = "SELECT * FROM colectivo WHERE estado = 1;";
+      Statement st = this.connection.createStatement();
+      ResultSet rs = st.executeQuery(sql);
+
+      while (rs.next()) {
+        int idColectivo = rs.getInt("id_colectivo");
+        String matricula = rs.getString("matricula");
+        String marca = rs.getString("marca");
+        String modelo = rs.getString("modelo");
+        int capacidad = rs.getInt("capacidad");
+        boolean estado = rs.getBoolean("estado");
+
+        Colectivo colectivo = new Colectivo(idColectivo, matricula, marca, modelo, capacidad, estado);
+        colectivos.add(colectivo);
+      }
+
+      st.close();
+    } catch (SQLException e) {
+      System.err.println(e);
+    }
+
+    return colectivos;
+  }
+
   public Colectivo obtenerColectivoPorId(int id) {
     Colectivo colectivo = null;
 
