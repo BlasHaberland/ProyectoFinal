@@ -27,35 +27,86 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
   private void initComponents() {
 
     jLabel1 = new javax.swing.JLabel();
+    jLabel2 = new javax.swing.JLabel();
+    jLabel3 = new javax.swing.JLabel();
+    jLabel4 = new javax.swing.JLabel();
+    jButton1 = new javax.swing.JButton();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    jTable1 = new javax.swing.JTable();
 
     setClosable(true);
     setTitle("Consultar Pasajes");
     setToolTipText("");
     setPreferredSize(new java.awt.Dimension(800, 580));
 
-    jLabel1.setText("jLabel1");
+    jLabel1.setText("Combo de ruta");
+
+    jLabel2.setText("Combo de Horarios");
+
+    jLabel3.setText("Combo de Colectivos");
+
+    jLabel4.setText("FECHA");
+
+    jButton1.setText("Buscar");
+
+    jTable1.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
+    jScrollPane1.setViewportView(jTable1);
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(341, 341, 341)
-        .addComponent(jLabel1)
-        .addContainerGap(416, Short.MAX_VALUE))
+        .addGap(86, 86, 86)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jButton1)
+          .addComponent(jLabel4)
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jLabel3)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel2)
+              .addComponent(jLabel1))))
+        .addContainerGap(259, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(87, 87, 87)
+        .addGap(54, 54, 54)
         .addComponent(jLabel1)
-        .addContainerGap(455, Short.MAX_VALUE))
+        .addGap(27, 27, 27)
+        .addComponent(jLabel2)
+        .addGap(39, 39, 39)
+        .addComponent(jLabel3)
+        .addGap(34, 34, 34)
+        .addComponent(jLabel4)
+        .addGap(29, 29, 29)
+        .addComponent(jButton1)
+        .addGap(48, 48, 48)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(72, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButton1;
   private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JTable jTable1;
   // End of variables declaration//GEN-END:variables
 }
