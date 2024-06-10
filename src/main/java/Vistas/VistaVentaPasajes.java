@@ -743,7 +743,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
     // TODO add your handling code here:
     System.out.println(asientoActivo);
-    Pasaje pasaje = new Pasaje(pasajeroActivo, colectivoActivo, rutaActiva, fechaActiva, horarioActivo.getHoraSalida(), Integer.parseInt(asientoActivo), Integer.parseInt(precio.getText()), true);
+    Pasaje pasaje = new Pasaje(pasajeroActivo, colectivoActivo, rutaActiva, fechaActiva, horarioActivo.getHoraSalida(), Integer.parseInt(asientoActivo), Double.parseDouble(precio.getText()), true);
 
     boolean respuesta = pasajeData.crearPasaje(pasaje);
 
@@ -846,6 +846,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     tablaPasajeros.getSelectionModel().clearSelection();
 
     buscarDNI.setText("");
+    precio.setText("");
 
     rutaSeleccionada.setText("Seleccione una ruta");
     rutaSeleccionada.setForeground(Color.ORANGE);
@@ -893,10 +894,10 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
       int idRutaActiva = rutaActiva.getIdRuta();
       String fechaSelecionada = fechaActiva.toString();
       String horaSeleccionada = horarioActivo.getHoraSalida().toString();
-      int idHorarioActivo = horarioActivo.getIdHorario();
+      // int idHorarioActivo = horarioActivo.getIdHorario();
       int idColectivoActivo = colectivoActivo.getIdColectivo();
 
-      int pLibres = pasajeData.obtenerLugaresLibres(idRutaActiva, fechaSelecionada, horaSeleccionada, idHorarioActivo, idColectivoActivo);
+      int pLibres = pasajeData.obtenerLugaresLibres(idRutaActiva, fechaSelecionada, horaSeleccionada, idColectivoActivo);
       cantidadAsientosLibres = pLibres;
 
       pasajesLibres.setText(String.valueOf(pLibres));
@@ -992,7 +993,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     String textoDocumento = buscarDNI.getText().trim();
 
     // EXPRESIONES REGULARES PARA VALIDAR PRECIO
-    String numberRegex = "^\\d{1,8}$";
+    String numberRegex = "^\\d{1,8}(\\.\\d{0,2})?$";
 
     //VALIDAR CAMPOS
     boolean valorPrecio = Regex.validarRegex(numberRegex, textoPrecio);
@@ -1005,9 +1006,9 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
 
     //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
     if (!textoPrecio.isEmpty() && !valorPrecio) {
-      JOptionPane.showMessageDialog(this, "Precio no válido (Sólo se aceptan números. Mínimo 1 dígito");
+      JOptionPane.showMessageDialog(this, "Precio no válido (Sólo se aceptan números con hasta 2 decimales.");
     } else if (!textoDocumento.isEmpty() && !valorDocumento) {
-      JOptionPane.showMessageDialog(this, "Documento no válido (Sólo se aceptan números. Mínimo 1 dígito");
+      JOptionPane.showMessageDialog(this, "Documento no válido (Sólo se aceptan números.");
     }
   }
 }

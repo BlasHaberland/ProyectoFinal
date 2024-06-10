@@ -1,6 +1,6 @@
 package Vistas;
 
-import com.formdev.flatlaf.intellijthemes.FlatSpacegrayIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatDraculaIJTheme;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
@@ -251,7 +251,7 @@ public class Escritorio extends javax.swing.JFrame {
     //</editor-fold>
 
     try {
-      FlatSpacegrayIJTheme.setup();
+      FlatDraculaIJTheme.setup();
     } catch (Exception ex) {
       System.err.println("Failed to initialize LaF");
     }
