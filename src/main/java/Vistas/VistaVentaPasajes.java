@@ -645,6 +645,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
 
   private void tablaHorariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHorariosMouseReleased
     // TODO add your handling code here:
+    asientoActivo = null;
     comboAsientos.setEnabled(false);
     // comboAsientos.setSelectedItem(-1);
     colectivoActivo = null;
@@ -671,8 +672,6 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   private void tablaColectivosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaColectivosMouseReleased
     // TODO add your handling code here:
     // asiento.setText("");
-    comboAsientos.setEnabled(true);
-
     int fila = tablaColectivos.getSelectedRow();
     int idColectivo = (int) tablaColectivos.getModel().getValueAt(fila, 0);
 
@@ -685,6 +684,10 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     obtenerPasajesDisponibles();
     llenarComboAsientos();
     chequearCampos();
+
+    if (cantidadAsientosLibres > 0) {
+      comboAsientos.setEnabled(true);
+    }
   }//GEN-LAST:event_tablaColectivosMouseReleased
 
   private void tablaPasajerosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPasajerosMouseReleased
@@ -705,6 +708,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     // comboAsientos.setSelectedItem(-1);
 
     colectivoActivo = null;
+    asientoActivo = null;
 
     Date fechaDate = fecha.getDate();
 
@@ -825,7 +829,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   private Pasajero pasajeroActivo;
   private LocalDate fechaActiva;
   private String asientoActivo;
-  // int cantidadAsientosLibres;
+  int cantidadAsientosLibres;
 
   private void limpiarCampos() {
     rutaActiva = null;
@@ -834,7 +838,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     pasajeroActivo = null;
     fechaActiva = null;
     asientoActivo = null;
-    // cantidadAsientosLibres = 0;
+    cantidadAsientosLibres = 0;
 
     tablaRutas.getSelectionModel().clearSelection();
     tablaHorarios.getSelectionModel().clearSelection();
@@ -893,7 +897,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
       int idColectivoActivo = colectivoActivo.getIdColectivo();
 
       int pLibres = pasajeData.obtenerLugaresLibres(idRutaActiva, fechaSelecionada, horaSeleccionada, idHorarioActivo, idColectivoActivo);
-      // cantidadAsientosLibres = pLibres;
+      cantidadAsientosLibres = pLibres;
 
       pasajesLibres.setText(String.valueOf(pLibres));
 
@@ -994,18 +998,11 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     boolean valorPrecio = Regex.validarRegex(numberRegex, textoPrecio);
     boolean valorDocumento = Regex.validarRegex(numberRegex, textoDocumento);
 
-    boolean validado = valorPrecio && rutaActiva != null && horarioActivo != null && fechaActiva != null && colectivoActivo != null && pasajeroActivo != null;
+    boolean validado = valorPrecio && rutaActiva != null && horarioActivo != null && fechaActiva != null && colectivoActivo != null && asientoActivo != null && pasajeroActivo != null;
 
     //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
-    System.out.println("**************************");
-    System.out.println(valorPrecio);
-    System.out.println(rutaActiva);
-    System.out.println(horarioActivo);
-    System.out.println(fechaActiva);
-    System.out.println(colectivoActivo);
-    System.out.println(pasajeroActivo);
-    System.out.println("**************************");
     guardar.setEnabled(validado);
+
     //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
     if (!textoPrecio.isEmpty() && !valorPrecio) {
       JOptionPane.showMessageDialog(this, "Precio no válido (Sólo se aceptan números. Mínimo 1 dígito");
