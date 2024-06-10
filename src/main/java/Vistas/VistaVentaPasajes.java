@@ -7,6 +7,7 @@ import DAO.PasajeroData;
 import DAO.RutaData;
 import Modelos.Colectivo;
 import Modelos.Horario;
+import Modelos.Pasaje;
 import Modelos.Pasajero;
 import Modelos.Ruta;
 import Utilidades.ComboBox;
@@ -737,6 +738,17 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
 
   private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
     // TODO add your handling code here:
+    System.out.println(asientoActivo);
+    Pasaje pasaje = new Pasaje(pasajeroActivo, colectivoActivo, rutaActiva, fechaActiva, horarioActivo.getHoraSalida(), Integer.parseInt(asientoActivo), Integer.parseInt(precio.getText()), true);
+
+    boolean respuesta = pasajeData.crearPasaje(pasaje);
+
+    if (respuesta) {
+      limpiarCampos();
+      JOptionPane.showMessageDialog(this, "Pasaje vendido");
+    } else {
+      JOptionPane.showMessageDialog(this, "Hubo un error al intentar vender el pasaje");
+    }
   }//GEN-LAST:event_guardarActionPerformed
 
   private void buscarDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarDNIKeyReleased
@@ -747,6 +759,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   private void comboAsientosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAsientosItemStateChanged
     // TODO add your handling code here:
     if (comboAsientos.getSelectedItem() != null) {
+      asientoActivo = (String) comboAsientos.getSelectedItem();
       asientoSeleccionado.setText(comboAsientos.getSelectedItem().toString());
       asientoSeleccionado.setForeground(Color.GREEN);
     }
@@ -811,8 +824,8 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   private Colectivo colectivoActivo;
   private Pasajero pasajeroActivo;
   private LocalDate fechaActiva;
-  private Integer asientoActivo;
-  int cantidadAsientosLibres;
+  private String asientoActivo;
+  // int cantidadAsientosLibres;
 
   private void limpiarCampos() {
     rutaActiva = null;
@@ -821,7 +834,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     pasajeroActivo = null;
     fechaActiva = null;
     asientoActivo = null;
-    cantidadAsientosLibres = 0;
+    // cantidadAsientosLibres = 0;
 
     tablaRutas.getSelectionModel().clearSelection();
     tablaHorarios.getSelectionModel().clearSelection();
@@ -848,6 +861,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
 
     Tabla.limpiarTabla(modeloHorarios);
     Tabla.limpiarTabla(modeloColectivos);
+    Tabla.limpiarTabla(modeloPasajeros);
   }
 
   private void obtenerColectivoAsignado() {
@@ -879,7 +893,7 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
       int idColectivoActivo = colectivoActivo.getIdColectivo();
 
       int pLibres = pasajeData.obtenerLugaresLibres(idRutaActiva, fechaSelecionada, horaSeleccionada, idHorarioActivo, idColectivoActivo);
-      cantidadAsientosLibres = pLibres;
+      // cantidadAsientosLibres = pLibres;
 
       pasajesLibres.setText(String.valueOf(pLibres));
 
