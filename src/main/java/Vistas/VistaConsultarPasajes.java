@@ -40,6 +40,8 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
     public VistaConsultarPasajes() {
         initComponents();
         Tabla.crearCabeceras(tablaPasaje, modeloPasaje, new String[]{"ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Precio"}, new int[]{20, 150, 200, 220, 80, 50});
+        eliminarPasaje.setEnabled(false);
+        buscarPasaje.setEnabled(false);
 
         llenarCombos(ruta, colectivo);
     }
@@ -62,6 +64,7 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         horario = new javax.swing.JComboBox<>();
         fecha = new com.toedter.calendar.JDateChooser();
         buscarPasaje = new javax.swing.JButton();
+        eliminarPasaje = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Consultar Pasajes");
@@ -71,15 +74,15 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setText("Horario:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel3.setText("Colectivo:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel4.setText("Fecha:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, -1, -1));
 
         tablaPasaje.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,31 +95,39 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaPasaje.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaPasajeMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPasaje);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 740, 230));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 740, 230));
 
         colectivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        colectivo.setPreferredSize(new java.awt.Dimension(35, 34));
-        getContentPane().add(colectivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 240, 30));
+        getContentPane().add(colectivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 240, 30));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel5.setText("Ruta:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         ruta.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        ruta.setPreferredSize(new java.awt.Dimension(35, 34));
         ruta.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rutaItemStateChanged(evt);
             }
         });
-        getContentPane().add(ruta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 240, 30));
+        getContentPane().add(ruta, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 240, 30));
 
         horario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        horario.setPreferredSize(new java.awt.Dimension(35, 34));
-        getContentPane().add(horario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 240, 30));
-        getContentPane().add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 240, -1));
+        getContentPane().add(horario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 240, 30));
+
+        fecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                fechaPropertyChange(evt);
+            }
+        });
+        getContentPane().add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 240, -1));
 
         buscarPasaje.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         buscarPasaje.setText("Buscar");
@@ -125,7 +136,16 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
                 buscarPasajeActionPerformed(evt);
             }
         });
-        getContentPane().add(buscarPasaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 160, 40));
+        getContentPane().add(buscarPasaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 160, 40));
+
+        eliminarPasaje.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        eliminarPasaje.setText("Eliminar");
+        eliminarPasaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarPasajeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(eliminarPasaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 160, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -155,11 +175,36 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         filtrarHorarios();
     }//GEN-LAST:event_rutaItemStateChanged
 
+    private void eliminarPasajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPasajeActionPerformed
+        // TODO add your handling code here:
+        int filaSeleccionada = tablaPasaje.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            int opcion = JOptionPane.showConfirmDialog(this, "Desea eliminar el pasaje seleccionado?");
+            if (opcion == 0) {
+                int idPasaje = (int) modeloPasaje.getValueAt(filaSeleccionada, 0);
+                pasajeData.borrarPasajeFisico(idPasaje);
+                JOptionPane.showMessageDialog(this, "Pasaje eliminado");
+                Tabla.limpiarTabla(modeloPasaje);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Se debe seleccionar un pasaje para eliminar");
+        }
+    }//GEN-LAST:event_eliminarPasajeActionPerformed
+
+    private void fechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fechaPropertyChange
+        // TODO add your handling code here:
+        chequearCampos();
+    }//GEN-LAST:event_fechaPropertyChange
+
+    private void tablaPasajeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPasajeMouseReleased
+        // TODO add your handling code here:
+        chequearCampos();
+    }//GEN-LAST:event_tablaPasajeMouseReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buscar;
-    private javax.swing.JButton buscar1;
     private javax.swing.JButton buscarPasaje;
     private javax.swing.JComboBox<Colectivo> colectivo;
+    private javax.swing.JButton eliminarPasaje;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JComboBox<Horario> horario;
     private javax.swing.JLabel jLabel2;
@@ -177,13 +222,6 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
     List<Pasaje> pasajesActivos = null;
     PasajeData pasajeData = new PasajeData();
 
-    private final DefaultTableModel modeloPasaje = new DefaultTableModel() {
-        @Override
-        public boolean isCellEditable(int row, int col) {
-            return false;
-        }
-    };
-
     private void generarTabla(List<Pasaje> pasajes) {
         Tabla.limpiarTabla(modeloPasaje);
         pasajes.forEach(pasaje -> modeloPasaje.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().toString(), pasaje.getColectivo().toString(), pasaje.getRuta().toString(), pasaje.getFechaViaje().toString(), pasaje.getPrecio()}));
@@ -197,6 +235,22 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
 
         //FILTRADO DE HORARIOS
         ComboBox.llenar(horario, horarios);
+    }
+
+    public void chequearCampos() {
+        if (fecha.getDate() != null) {
+            buscarPasaje.setEnabled(true);
+        } else {
+            buscarPasaje.setEnabled(false);
+        }
+
+        int filaSeleccionada = tablaPasaje.getSelectedRow();
+
+        if (filaSeleccionada != -1) {
+            eliminarPasaje.setEnabled(true);
+        } else {
+            eliminarPasaje.setEnabled(false);
+        }
     }
 
     //MEJORABLE
@@ -216,5 +270,17 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         }).thenAccept(colectivos -> {
             ComboBox.llenar(combo2, colectivos);
         });
+    }
+
+    private final DefaultTableModel modeloPasaje = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            return false;
+        }
+    };
+
+    public void limpiarCampos() {
+        fecha.setDate(null);
+        Tabla.limpiarTabla(modeloPasaje);
     }
 }
