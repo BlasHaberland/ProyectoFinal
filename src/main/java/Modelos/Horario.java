@@ -2,7 +2,7 @@ package Modelos;
 
 import java.time.LocalTime;
 
-public class Horario {
+public class Horario implements Comparable<Horario> {
 
   private int idHorario;
   private Ruta ruta;
@@ -71,6 +71,11 @@ public class Horario {
   @Override
   public String toString() {
     return horaSalida + " - " + horaLlegada;
+  }
+
+  @Override
+  public int compareTo(Horario o) {
+    return this.horaSalida.compareTo(o.getHoraSalida());
   }
 
 }

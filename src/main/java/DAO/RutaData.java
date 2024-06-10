@@ -50,7 +50,6 @@ public class RutaData {
       System.err.println(e);
     }
 
-    System.out.println("aca");
     Collections.sort(rutas);
 
     return rutas;
@@ -112,6 +111,9 @@ public class RutaData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
+    Collections.sort(rutas);
+
     return rutas;
   }
 
@@ -142,6 +144,7 @@ public class RutaData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
     return rutas;
   }
 
@@ -174,6 +177,7 @@ public class RutaData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
     return ruta;
   }
 
@@ -197,6 +201,7 @@ public class RutaData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
     return exito;
   }
 
@@ -232,6 +237,7 @@ public class RutaData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
     return exito;
   }
 
@@ -253,6 +259,7 @@ public class RutaData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
     return exito;
   }
 }

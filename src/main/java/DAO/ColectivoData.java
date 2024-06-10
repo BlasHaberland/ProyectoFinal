@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ColectivoData {
@@ -43,6 +44,8 @@ public class ColectivoData {
       System.err.println(e);
     }
 
+    Collections.sort(colectivos);
+
     return colectivos;
   }
 
@@ -70,6 +73,8 @@ public class ColectivoData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
+    Collections.sort(colectivos);
 
     return colectivos;
   }

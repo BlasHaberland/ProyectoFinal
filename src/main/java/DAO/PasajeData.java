@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PasajeData {
@@ -59,6 +60,9 @@ public class PasajeData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
+    Collections.sort(pasajes);
+
     return pasajes;
   }
 
@@ -128,6 +132,8 @@ public class PasajeData {
       System.err.println(e);
     }
 
+    Collections.sort(pasajes);
+
     return pasajes;
   }
 
@@ -184,6 +190,7 @@ public class PasajeData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
     return exito;
   }
 
@@ -271,6 +278,8 @@ public class PasajeData {
     } catch (SQLException ex) {
       System.err.println(ex);
     }
+
+    Collections.sort(pasajes);
 
     return pasajes;
   }

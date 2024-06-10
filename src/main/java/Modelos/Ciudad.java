@@ -1,6 +1,6 @@
 package Modelos;
 
-public class Ciudad {
+public class Ciudad implements Comparable<Ciudad> {
 
   private int idCiudad;
   private String nombre;
@@ -58,5 +58,10 @@ public class Ciudad {
   @Override
   public String toString() {
     return nombre + " (" + provincia + ")";
+  }
+
+  @Override
+  public int compareTo(Ciudad o) {
+    return this.nombre.compareTo(o.getNombre());
   }
 }

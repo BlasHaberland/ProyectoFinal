@@ -3,7 +3,7 @@ package Modelos;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Pasaje {
+public class Pasaje implements Comparable<Pasaje> {
 
   private int idPasaje;
   private Pasajero pasajero;
@@ -118,5 +118,10 @@ public class Pasaje {
   // pantalla. Hay que modificarlo.
   public String toString() {
     return "Pasaje{" + "idPasaje=" + idPasaje + ", pasajero=" + pasajero + ", colectivo=" + colectivo + ", ruta=" + ruta + ", fechaViaje=" + fechaViaje + ", horaViaje=" + horaViaje + ", asiento=" + asiento + ", precio=" + precio + '}';
+  }
+
+  @Override
+  public int compareTo(Pasaje o) {
+    return this.fechaViaje.compareTo(o.getFechaViaje());
   }
 }

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HorarioData {
@@ -46,6 +47,9 @@ public class HorarioData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
+    Collections.sort(horarios);
+
     return horarios;
   }
 
@@ -103,6 +107,8 @@ public class HorarioData {
       System.err.println(e);
     }
 
+    Collections.sort(horarios);
+
     return horarios;
   }
 
@@ -132,6 +138,8 @@ public class HorarioData {
       System.err.println(e);
     }
 
+    Collections.sort(horarios);
+
     return horarios;
   }
 
@@ -159,10 +167,6 @@ public class HorarioData {
   }
 
   public boolean modificarHorario(Horario horario) {
-    // TODO (Blas): La hora de llegada no debe setearse directamente. Debería obtener
-    // la duración de la ruta y, a partir de esa duración y del horario de
-    // salida, setear la hora de llegada.
-
     boolean exito = false;
 
     try {

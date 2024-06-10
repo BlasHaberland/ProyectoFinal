@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CiudadData {
@@ -39,6 +40,9 @@ public class CiudadData {
     } catch (SQLException e) {
       System.err.println(e);
     }
+
+    Collections.sort(ciudades);
+
     return ciudades;
   }
 
