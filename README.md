@@ -12,7 +12,7 @@ Desarrollar una aplicación **Java** de escritorio que permita administrar la ve
 de pasajes de una empresa de colectivos. La aplicación debe gestionar la información
 de rutas, horarios, pasajeros y ventas de pasajes. La aplicación debe interactuar con
 una base de datos para almacenar y recuperar la información de manera eficiente.
-###Requisitos Técnicos
+### Requisitos Técnicos
 ##### Interfaz de Usuario:
 La aplicación debe tener una interfaz gráfica de usuario (GUI) sencilla y fácil de usar,
 creada con **Swing**.
