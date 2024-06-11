@@ -39,7 +39,7 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
      */
     public VistaConsultarPasajes() {
         initComponents();
-        Tabla.crearCabeceras(tablaPasaje, modeloPasaje, new String[]{"ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Precio"}, new int[]{20, 150, 200, 220, 80, 50});
+        Tabla.crearCabeceras(tablaPasaje, modeloPasaje, new String[]{"ID Pasaje", "Apellido", "Nombre", "DNI", "Correo", "Telefono"}, new int[]{50, 100, 100, 75, 150, 100});
         eliminarPasaje.setEnabled(false);
         buscarPasaje.setEnabled(false);
 
@@ -65,6 +65,9 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         fecha = new com.toedter.calendar.JDateChooser();
         buscarPasaje = new javax.swing.JButton();
         eliminarPasaje = new javax.swing.JButton();
+        limpiar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        numeroPasajeros = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Consultar Pasajes");
@@ -147,6 +150,20 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         });
         getContentPane().add(eliminarPasaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, 160, 40));
 
+        limpiar.setText("limpiar");
+        limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        jLabel1.setText("Pasajeros:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, -1, -1));
+
+        numeroPasajeros.setText("--");
+        getContentPane().add(numeroPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -168,6 +185,8 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No se encontraron pasajes con estos datos");
         }
+
+        chequearCampos();
     }//GEN-LAST:event_buscarPasajeActionPerformed
 
     private void rutaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rutaItemStateChanged
@@ -189,6 +208,9 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Se debe seleccionar un pasaje para eliminar");
         }
+
+        chequearCampos();
+
     }//GEN-LAST:event_eliminarPasajeActionPerformed
 
     private void fechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fechaPropertyChange
@@ -201,17 +223,27 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
         chequearCampos();
     }//GEN-LAST:event_tablaPasajeMouseReleased
 
+    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+        // TODO add your handling code here:
+        limpiarCampos();
+        chequearCampos();
+
+    }//GEN-LAST:event_limpiarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscarPasaje;
     private javax.swing.JComboBox<Colectivo> colectivo;
     private javax.swing.JButton eliminarPasaje;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JComboBox<Horario> horario;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton limpiar;
+    private javax.swing.JLabel numeroPasajeros;
     private javax.swing.JComboBox<Ruta> ruta;
     private javax.swing.JTable tablaPasaje;
     // End of variables declaration//GEN-END:variables
@@ -224,7 +256,7 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
 
     private void generarTabla(List<Pasaje> pasajes) {
         Tabla.limpiarTabla(modeloPasaje);
-        pasajes.forEach(pasaje -> modeloPasaje.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().toString(), pasaje.getColectivo().toString(), pasaje.getRuta().toString(), pasaje.getFechaViaje().toString(), pasaje.getPrecio()}));
+        pasajes.forEach(pasaje -> modeloPasaje.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getApellido(), pasaje.getPasajero().getNombre(), pasaje.getPasajero().getDni(), pasaje.getPasajero().getCorreo(), pasaje.getPasajero().getTelefono()}));
     }
 
     public void filtrarHorarios() {
@@ -238,19 +270,29 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
     }
 
     public void chequearCampos() {
+        int filas = tablaPasaje.getRowCount();
+        int filaSeleccionada = tablaPasaje.getSelectedRow();
+
         if (fecha.getDate() != null) {
             buscarPasaje.setEnabled(true);
         } else {
             buscarPasaje.setEnabled(false);
         }
 
-        int filaSeleccionada = tablaPasaje.getSelectedRow();
+        if (filas > 0) {
+            limpiar.setEnabled(true);
+            numeroPasajeros.setText(filas + "");
+        } else {
+            limpiar.setEnabled(false);
+            numeroPasajeros.setText("--");
+        }
 
         if (filaSeleccionada != -1) {
             eliminarPasaje.setEnabled(true);
         } else {
             eliminarPasaje.setEnabled(false);
         }
+
     }
 
     //MEJORABLE
