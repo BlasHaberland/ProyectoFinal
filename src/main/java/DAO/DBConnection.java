@@ -8,6 +8,12 @@ public class DBConnection {
 
   private final Connection connection;
   private static DBConnection dbCon;
+  // Datos de conexión de MySQL/MariaDB
+  private final String usuario = "root";
+  private final String password = "";
+  private final String baseDeDatos = "proyecto_final";
+  private final String host = "localhost";
+  private final String puerto = "3306";
 
   private DBConnection() throws SQLException {
     try {
@@ -16,7 +22,7 @@ public class DBConnection {
       System.err.println("Error en el Driver de MySQL");
       System.err.println(e);
     }
-    connection = DriverManager.getConnection("jdbc:mysql://root:@localhost:3306/proyecto_final"); // Cadena de conexión a la base de datos
+    connection = DriverManager.getConnection("jdbc:mysql://" + usuario + ":" + password + "@" + host + ":" + puerto + "/" + baseDeDatos);
   }
 
   public static DBConnection getInstance() {
