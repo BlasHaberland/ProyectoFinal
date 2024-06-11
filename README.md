@@ -45,7 +45,7 @@ CREATE DATABASE proyecto_final;
 
 **EXTRA: Puede importar desde PHPMyAdmin, MySQL Workbench, o similar, el archivo _script/Script_Colectivo.sql_ que contiene datos de ejemplo**.
 
-##### Capturas
+### Capturas
 
 ![Laboratorio I](https://i.ibb.co/YcySYtP/lab-01.png 'Laboratorio I')
 
