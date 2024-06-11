@@ -7,16 +7,16 @@
 - Federico González
 - Blas Haberland
 
-###Objetivo
+### Objetivo
 Desarrollar una aplicación **Java** de escritorio que permita administrar la venta
 de pasajes de una empresa de colectivos. La aplicación debe gestionar la información
 de rutas, horarios, pasajeros y ventas de pasajes. La aplicación debe interactuar con
 una base de datos para almacenar y recuperar la información de manera eficiente.
 ###Requisitos Técnicos
-#####Interfaz de Usuario:
+##### Interfaz de Usuario:
 La aplicación debe tener una interfaz gráfica de usuario (GUI) sencilla y fácil de usar,
 creada con **Swing**.
-#####Persistencia de Datos:
+##### Persistencia de Datos:
 La aplicación debe utilizar **JDBC** para interactuar con una base de datos **MySQL**.
 
 ### Instalación
