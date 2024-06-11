@@ -43,7 +43,7 @@ git clone https://github.com/BlasHaberland/ProyectoFinal.git
 CREATE DATABASE proyecto_final;
 ```
 
-**EXTRA: Puede importar desde PHPMyAdmin, MySQL Workbench, o similar, el archivo _/script/Script_Colectivo.sql_ que contiene datos de ejemplo**.
+**EXTRA: Puede importar desde PHPMyAdmin, MySQL Workbench, o similar, el archivo _script/Script_Colectivo.sql_ que contiene datos de ejemplo**.
 
 ##### Capturas
 
