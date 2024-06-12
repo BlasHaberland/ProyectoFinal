@@ -2,8 +2,19 @@ package Vistas;
 
 import DAO.CiudadData;
 import Modelos.Ciudad;
+import Utilidades.ComboBox;
 import Utilidades.Regex;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import javax.swing.JOptionPane;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class VistaCiudad extends javax.swing.JInternalFrame {
 
@@ -13,6 +24,21 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   public VistaCiudad() {
     initComponents();
     limpiarCampos();
+
+    CompletableFuture.supplyAsync(() -> {
+      List<String> listaProvincias = new ArrayList<>();
+
+      try {
+        listaProvincias = cargarProvincias();
+      } catch (IOException ex) {
+        System.err.println(ex);
+      }
+
+      return listaProvincias;
+    }).thenAccept(rutas -> {
+      ComboBox.llenar(provincias, rutas);
+      provincias.setSelectedIndex(2);
+    });
   }
 
   /**
@@ -27,7 +53,6 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     nombre = new javax.swing.JTextField();
     jLabel1 = new javax.swing.JLabel();
     jLabel2 = new javax.swing.JLabel();
-    provincia = new javax.swing.JTextField();
     buscar = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
     idCiudad = new javax.swing.JTextField();
@@ -36,6 +61,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     estado = new javax.swing.JRadioButton();
     jLabel4 = new javax.swing.JLabel();
     eliminar = new javax.swing.JButton();
+    provincias = new javax.swing.JComboBox<>();
 
     setClosable(true);
     setTitle("Ciudad");
@@ -53,13 +79,6 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
 
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
     jLabel2.setText("Provincia:");
-
-    provincia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-    provincia.addKeyListener(new java.awt.event.KeyAdapter() {
-      public void keyReleased(java.awt.event.KeyEvent evt) {
-        provinciaKeyReleased(evt);
-      }
-    });
 
     buscar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
     buscar.setText("Buscar");
@@ -112,6 +131,13 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
       }
     });
 
+    provincias.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+    provincias.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        provinciasItemStateChanged(evt);
+      }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -119,9 +145,9 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(114, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+          .addGroup(layout.createSequentialGroup()
             .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
             .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,44 +159,40 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
               .addComponent(jLabel4))
             .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(estado)
               .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                  .addComponent(idCiudad))
-                .addGap(132, 132, 132)
-                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(estado)
+                  .addComponent(provincias, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(132, 132, 132))
               .addGroup(layout.createSequentialGroup()
-                .addComponent(provincia)
-                .addGap(132, 132, 132)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                  .addComponent(idCiudad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         .addGap(114, 114, 114))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addGap(130, 130, 130)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel3)
-              .addComponent(idCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(27, 27, 27)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jLabel1)
-              .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(35, 35, 35))
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(buscar)
-            .addGap(64, 64, 64)))
+        .addGap(130, 130, 130)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel3)
+          .addComponent(idCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(buscar))
+        .addGap(27, 27, 27)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jLabel1)
+          .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(35, 35, 35)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jLabel2)
-          .addComponent(provincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(28, 28, 28)
+          .addComponent(provincias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(29, 29, 29)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(jLabel4)
           .addComponent(estado))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(limpiar)
           .addComponent(guardar)
@@ -184,14 +206,6 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   private void idCiudadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idCiudadKeyReleased
     chequearCampos();
   }//GEN-LAST:event_idCiudadKeyReleased
-
-  private void nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyReleased
-    chequearCampos();
-  }//GEN-LAST:event_nombreKeyReleased
-
-  private void provinciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_provinciaKeyReleased
-    chequearCampos();
-  }//GEN-LAST:event_provinciaKeyReleased
 
   private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
     if (!idCiudad.getText().equals("")) {
@@ -210,7 +224,8 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
 
       idCiudad.setText(String.valueOf(ciudadActiva.getIdCiudad()));
       nombre.setText(ciudadActiva.getNombre());
-      provincia.setText(ciudadActiva.getProvincia());
+      // provincia.setText(ciudadActiva.getProvincia());
+      provincias.setSelectedItem(ciudadActiva.getProvincia());
       estado.setSelected(ciudadActiva.isEstado());
 
     } else {
@@ -221,6 +236,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_buscarActionPerformed
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+    provincias.setSelectedIndex(2);
     limpiarCampos();
   }//GEN-LAST:event_limpiarActionPerformed
 
@@ -228,6 +244,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     boolean respuesta = ciudadData.borrarCiudad(ciudadActiva.getIdCiudad());
 
     if (respuesta) {
+      provincias.setSelectedIndex(2);
       limpiarCampos();
       JOptionPane.showMessageDialog(this, "Ciudad eliminada");
     } else {
@@ -238,7 +255,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
     if (ciudadActiva == null) {
       String nombreNuevo = nombre.getText();
-      String provinciaNuevo = provincia.getText();
+      String provinciaNuevo = (String) provincias.getSelectedItem();
       boolean estadoNuevo = this.estado.isSelected();
 
       Ciudad ciudad = new Ciudad(nombreNuevo, provinciaNuevo, estadoNuevo);
@@ -251,7 +268,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
       }
     } else {
       ciudadActiva.setNombre(nombre.getText());
-      ciudadActiva.setProvincia(provincia.getText());
+      ciudadActiva.setProvincia((String) provincias.getSelectedItem());
       ciudadActiva.setEstado(estado.isSelected());
 
       boolean respuesta = ciudadData.modificarCiudad(ciudadActiva);
@@ -263,12 +280,21 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
       }
     }
 
+    provincias.setSelectedIndex(2);
     limpiarCampos();
   }//GEN-LAST:event_guardarActionPerformed
 
   private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
     chequearCampos();
   }//GEN-LAST:event_estadoItemStateChanged
+
+  private void nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyReleased
+    chequearCampos();
+  }//GEN-LAST:event_nombreKeyReleased
+
+  private void provinciasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_provinciasItemStateChanged
+    chequearCampos();
+  }//GEN-LAST:event_provinciasItemStateChanged
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton buscar;
@@ -282,7 +308,7 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   private javax.swing.JLabel jLabel4;
   private javax.swing.JButton limpiar;
   private javax.swing.JTextField nombre;
-  private javax.swing.JTextField provincia;
+  private javax.swing.JComboBox<String> provincias;
   // End of variables declaration//GEN-END:variables
   private Ciudad ciudadActiva = null;
   private final CiudadData ciudadData = new CiudadData();
@@ -291,7 +317,6 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     ciudadActiva = null;
     idCiudad.setText("");
     nombre.setText("");
-    provincia.setText("");
     guardar.setText("Guardar");
     estado.setSelected(true);
     buscar.setEnabled(false);
@@ -300,14 +325,13 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     guardar.setEnabled(false);
     idCiudad.setEnabled(true);
     idCiudad.requestFocus();
-
   }
 
   private void chequearCampos() {
     //OBTENER CAMPOS
     String textoIdCiudad = idCiudad.getText().trim();
     String textoNombre = nombre.getText().trim();
-    String textoProvincia = provincia.getText().trim();
+    // String textoProvincia = provincia.getText().trim();
 
     // EXPRESIONES REGULARES PARA VALIDAR DOCUMENTO, NOMBRE Y APELLIDO
     String idRegex = "^\\d{1,8}$";
@@ -316,23 +340,21 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     //VALIDAR CAMPOS
     boolean idCiudadValida = Regex.validarRegex(idRegex, textoIdCiudad);
     boolean nombreValido = Regex.validarRegex(nombreRegex, textoNombre);
-    boolean provinciaValida = Regex.validarRegex(nombreRegex, textoProvincia);
+    // boolean provinciaValida = Regex.validarRegex(nombreRegex, textoProvincia);
 
-    boolean validado = idCiudadValida && nombreValido && provinciaValida;
+    boolean validado = idCiudadValida && nombreValido;
 
     //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
     buscar.setEnabled((idCiudadValida || nombreValido) && ciudadActiva == null);
     limpiar.setEnabled(true);
     eliminar.setEnabled(validado && ciudadActiva != null);
-    guardar.setEnabled(nombreValido && provinciaValida);
+    guardar.setEnabled(nombreValido);
 
     //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
     if (!textoIdCiudad.isEmpty() && !idCiudadValida) {
       JOptionPane.showMessageDialog(this, "ID inválida (Sólo se aceptan números. Mínimo 1 dígito");
     } else if (!textoNombre.isEmpty() && !nombreValido) {
       JOptionPane.showMessageDialog(this, "Nombre inválido (No se aceptan números. Mínimo 3 caracteres");
-    } else if (!textoProvincia.isEmpty() && !provinciaValida) {
-      JOptionPane.showMessageDialog(this, "Provincia inválida (No se aceptan números. Mínimo 3 caracteres");
     }
 
     //HABILITAR BOTON BUSCAR SI LA ID ES VALIDO
@@ -343,8 +365,37 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
     }
 
     //DESHABILITAR EL BOTON LIMPIAR SI LOS CAMPOS ESTAN VACIOS
-    if (textoIdCiudad.isEmpty() && textoNombre.isEmpty() && textoProvincia.isEmpty()) {
+    if (textoIdCiudad.isEmpty() && textoNombre.isEmpty()) {
       limpiar.setEnabled(false);
     }
+  }
+
+  private List<String> cargarProvincias() throws IOException {
+    ArrayList<String> nombresProvincias = new ArrayList<>();
+
+    String url = "https://apis.datos.gob.ar/georef/api/provincias";
+    HttpClient client = HttpClient.newHttpClient();
+
+    HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .GET()
+            .build();
+
+    HttpResponse<String> response;
+    try {
+      response = client.send(request, HttpResponse.BodyHandlers.ofString());
+      JSONObject jsonObject = new JSONObject(response.body());
+      JSONArray provinciasArray = jsonObject.getJSONArray("provincias");
+
+      for (int i = 0; i < provinciasArray.length(); i++) {
+        JSONObject provincia = provinciasArray.getJSONObject(i);
+        String nombre = provincia.getString("nombre");
+        nombresProvincias.add(nombre);
+      }
+    } catch (InterruptedException ex) {
+      System.out.println(ex);
+    }
+
+    return nombresProvincias;
   }
 }
