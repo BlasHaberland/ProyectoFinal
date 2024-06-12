@@ -60,7 +60,6 @@ public class PasajeroData {
       ResultSet rs = ps.executeQuery();
 
       while (rs.next()) {
-        System.out.println(rs);
         int idPasajero = rs.getInt("id_pasajero");
         String nombre = rs.getString("nombre");
         String apellido = rs.getString("apeliido");

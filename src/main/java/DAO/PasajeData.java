@@ -225,7 +225,6 @@ public class PasajeData {
       ps.setString(2, fecha);
       ps.setString(3, horaViaje);
       ps.setInt(4, idColectivo);
-      System.out.println(ps);
       ResultSet rs = ps.executeQuery();
 
       if (rs.next()) {

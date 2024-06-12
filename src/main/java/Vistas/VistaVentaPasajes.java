@@ -473,11 +473,6 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     jLabel15.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
     jLabel15.setText("Precio:");
 
-    precio.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        precioActionPerformed(evt);
-      }
-    });
     precio.addKeyListener(new java.awt.event.KeyAdapter() {
       public void keyReleased(java.awt.event.KeyEvent evt) {
         precioKeyReleased(evt);
@@ -584,7 +579,6 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-    // TODO add your handling code here:
     int dni = Integer.parseInt(buscarDNI.getText());
 
     Pasajero pasajero = pasajeroData.obtenerPasajeroActivoPorDni(dni);
@@ -604,16 +598,12 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_buscarActionPerformed
 
   private void tablaRutasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRutasMouseReleased
-    // TODO add your handling code here:
     comboAsientos.setEnabled(false);
-    // comboAsientos.setSelectedItem(-1);
     horarioActivo = null;
     colectivoActivo = null;
     asientoActivo = null;
-    // fechaActiva = null;
     tablaColectivos.getSelectionModel().clearSelection();
     pasajesLibres.setText("--");
-    // asiento.setText("");
 
     int fila = tablaRutas.getSelectedRow();
     int idRuta = (int) tablaRutas.getModel().getValueAt(fila, 0);
@@ -644,14 +634,11 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_tablaRutasMouseReleased
 
   private void tablaHorariosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHorariosMouseReleased
-    // TODO add your handling code here:
     asientoActivo = null;
     comboAsientos.setEnabled(false);
-    // comboAsientos.setSelectedItem(-1);
     colectivoActivo = null;
     tablaColectivos.getSelectionModel().clearSelection();
     pasajesLibres.setText("--");
-    // asiento.setText("");
 
     int fila = tablaHorarios.getSelectedRow();
     int idHorario = (int) tablaHorarios.getModel().getValueAt(fila, 0);
@@ -670,8 +657,6 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_tablaHorariosMouseReleased
 
   private void tablaColectivosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaColectivosMouseReleased
-    // TODO add your handling code here:
-    // asiento.setText("");
     int fila = tablaColectivos.getSelectedRow();
     int idColectivo = (int) tablaColectivos.getModel().getValueAt(fila, 0);
 
@@ -691,7 +676,6 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_tablaColectivosMouseReleased
 
   private void tablaPasajerosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPasajerosMouseReleased
-    // TODO add your handling code here:
     int fila = tablaPasajeros.getSelectedRow();
     int idPasajero = (int) tablaPasajeros.getModel().getValueAt(fila, 0);
 
@@ -703,7 +687,6 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_tablaPasajerosMouseReleased
 
   private void fechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fechaPropertyChange
-    // TODO add your handling code here:
     comboAsientos.setEnabled(false);
     // comboAsientos.setSelectedItem(-1);
 
@@ -727,22 +710,15 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_fechaPropertyChange
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-    // TODO add your handling code here:
     limpiarCampos();
   }//GEN-LAST:event_limpiarActionPerformed
 
-  private void precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_precioActionPerformed
 
   private void precioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precioKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_precioKeyReleased
 
   private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-    // TODO add your handling code here:
-    System.out.println(asientoActivo);
     Pasaje pasaje = new Pasaje(pasajeroActivo, colectivoActivo, rutaActiva, fechaActiva, horarioActivo.getHoraSalida(), Integer.parseInt(asientoActivo), Double.parseDouble(precio.getText()), true);
 
     boolean respuesta = pasajeData.crearPasaje(pasaje);
@@ -756,12 +732,10 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_guardarActionPerformed
 
   private void buscarDNIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarDNIKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_buscarDNIKeyReleased
 
   private void comboAsientosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAsientosItemStateChanged
-    // TODO add your handling code here:
     if (comboAsientos.getSelectedItem() != null) {
       asientoActivo = (String) comboAsientos.getSelectedItem();
       asientoSeleccionado.setText(comboAsientos.getSelectedItem().toString());
@@ -890,11 +864,9 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
 
   private void obtenerPasajesDisponibles() {
     if (horarioActivo != null && fechaActiva != null && rutaActiva != null && colectivoActivo != null) {
-      System.out.println(colectivoActivo);
       int idRutaActiva = rutaActiva.getIdRuta();
       String fechaSelecionada = fechaActiva.toString();
       String horaSeleccionada = horarioActivo.getHoraSalida().toString();
-      // int idHorarioActivo = horarioActivo.getIdHorario();
       int idColectivoActivo = colectivoActivo.getIdColectivo();
 
       int pLibres = pasajeData.obtenerLugaresLibres(idRutaActiva, fechaSelecionada, horaSeleccionada, idColectivoActivo);
@@ -995,16 +967,16 @@ public class VistaVentaPasajes extends javax.swing.JInternalFrame {
     // EXPRESIONES REGULARES PARA VALIDAR PRECIO
     String numberRegex = "^\\d{1,8}(\\.\\d{0,2})?$";
 
-    //VALIDAR CAMPOS
+    // VALIDAR CAMPOS
     boolean valorPrecio = Regex.validarRegex(numberRegex, textoPrecio);
     boolean valorDocumento = Regex.validarRegex(numberRegex, textoDocumento);
 
     boolean validado = valorPrecio && rutaActiva != null && horarioActivo != null && fechaActiva != null && colectivoActivo != null && asientoActivo != null && pasajeroActivo != null;
 
-    //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
+    // HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
     guardar.setEnabled(validado);
 
-    //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
+    // MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
     if (!textoPrecio.isEmpty() && !valorPrecio) {
       JOptionPane.showMessageDialog(this, "Precio no válido (Sólo se aceptan números con hasta 2 decimales.");
     } else if (!textoDocumento.isEmpty() && !valorDocumento) {

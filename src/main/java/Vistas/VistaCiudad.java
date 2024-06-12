@@ -182,23 +182,18 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void idCiudadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idCiudadKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_idCiudadKeyReleased
 
   private void nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_nombreKeyReleased
 
   private void provinciaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_provinciaKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_provinciaKeyReleased
 
   private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-    // TODO add your handling code here:
-
     if (!idCiudad.getText().equals("")) {
       Integer id = Integer.valueOf(idCiudad.getText().trim());
       ciudadActiva = ciudadData.obtenerCiudadPorId(id);
@@ -226,12 +221,10 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_buscarActionPerformed
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-    // TODO add your handling code here:
     limpiarCampos();
   }//GEN-LAST:event_limpiarActionPerformed
 
   private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-    // TODO add your handling code here:
     boolean respuesta = ciudadData.borrarCiudad(ciudadActiva.getIdCiudad());
 
     if (respuesta) {
@@ -243,7 +236,6 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_eliminarActionPerformed
 
   private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-    // TODO add your handling code here:
     if (ciudadActiva == null) {
       String nombreNuevo = nombre.getText();
       String provinciaNuevo = provincia.getText();
@@ -275,8 +267,6 @@ public class VistaCiudad extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_guardarActionPerformed
 
   private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
-    // TODO add your handling code here:
-    //guardar.setEnabled(true);
     chequearCampos();
   }//GEN-LAST:event_estadoItemStateChanged
 

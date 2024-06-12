@@ -329,12 +329,10 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void rutaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rutaItemStateChanged
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_rutaItemStateChanged
 
   private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-    // TODO add your handling code here:
     horaSalida.setText("");
     minutosSalida.setText("");
     horaLlegada.setText("");
@@ -356,7 +354,6 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_buscarActionPerformed
 
   private void tablaHorariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaHorariosMouseClicked
-    // TODO add your handling code here:
     guardar.setEnabled(true);
     eliminar.setEnabled(true);
     horaSalida.setText("");
@@ -377,26 +374,21 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_tablaHorariosMouseClicked
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-    // TODO add your handling code here:
     limpiarCampos();
   }//GEN-LAST:event_limpiarActionPerformed
 
   private void minutosLlegadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minutosLlegadaActionPerformed
-    // TODO add your handling code here:
   }//GEN-LAST:event_minutosLlegadaActionPerformed
 
   private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_estadoItemStateChanged
 
   private void horaLlegadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horaLlegadaKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_horaLlegadaKeyReleased
 
   private void horaSalidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horaSalidaKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
 
     int horaDeSalida = 0;
@@ -419,11 +411,9 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_horaSalidaKeyReleased
 
   private void horaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaSalidaActionPerformed
-    // TODO add your handling code here:
   }//GEN-LAST:event_horaSalidaActionPerformed
 
   private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-    // TODO add your handling code here:
     boolean respuesta = horarioData.borrarHorario(horarioActivo.getIdHorario());
 
     if (respuesta) {
@@ -435,7 +425,6 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_eliminarActionPerformed
 
   private void minutosSalidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_minutosSalidaKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
 
     int horaDeSalida = 0;
@@ -458,7 +447,6 @@ public class VistaHorarios extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_minutosSalidaKeyReleased
 
   private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-    // TODO add your handling code here:
     Ruta nuevaRuta = (Ruta) ruta.getSelectedItem();
     LocalTime salida = LocalTime.of(Integer.parseInt(horaSalida.getText()), Integer.parseInt(minutosSalida.getText()));
     LocalTime llegada = LocalTime.of(Integer.parseInt(horaLlegada.getText()), Integer.parseInt(minutosLlegada.getText()));

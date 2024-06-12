@@ -60,11 +60,7 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(800, 580));
 
         apellidoPasajero.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        apellidoPasajero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                apellidoPasajeroActionPerformed(evt);
-            }
-        });
+
         apellidoPasajero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 apellidoPasajeroKeyReleased(evt);
@@ -86,11 +82,7 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
         jLabel3.setText("Nombre:");
 
         nombrePasajero.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        nombrePasajero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombrePasajeroActionPerformed(evt);
-            }
-        });
+
         nombrePasajero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nombrePasajeroKeyReleased(evt);
@@ -98,11 +90,7 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
         });
 
         correoPasajero.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        correoPasajero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                correoPasajeroActionPerformed(evt);
-            }
-        });
+
         correoPasajero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 correoPasajeroKeyReleased(evt);
@@ -113,11 +101,7 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
         jLabel4.setText("Correo:");
 
         telefonoPasajero.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        telefonoPasajero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefonoPasajeroActionPerformed(evt);
-            }
-        });
+
         telefonoPasajero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 telefonoPasajeroKeyReleased(evt);
@@ -155,11 +139,7 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
         jLabel6.setText("Estado:");
 
         dniPasajero.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        dniPasajero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dniPasajeroActionPerformed(evt);
-            }
-        });
+
         dniPasajero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 dniPasajeroKeyReleased(evt);
@@ -251,48 +231,24 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void apellidoPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoPasajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_apellidoPasajeroActionPerformed
-
-    private void nombrePasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombrePasajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombrePasajeroActionPerformed
-
-    private void correoPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoPasajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_correoPasajeroActionPerformed
-
-    private void telefonoPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoPasajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoPasajeroActionPerformed
-
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_limpiarActionPerformed
 
-    private void dniPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dniPasajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dniPasajeroActionPerformed
 
     private void dniPasajeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dniPasajeroKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_dniPasajeroKeyReleased
 
     private void apellidoPasajeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoPasajeroKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_apellidoPasajeroKeyReleased
 
     private void nombrePasajeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombrePasajeroKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_nombrePasajeroKeyReleased
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // TODO: VALIDAR NUMERO DE TELEFONO Y CORREO ELECTRONICO
-
         String correoRegex = "^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$";
 
         boolean correoValido = validarRegex(correoRegex, correoPasajero.getText().trim());
@@ -329,7 +285,6 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_guardarActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        // TODO add your handling code here:
         Integer dni = Integer.valueOf(dniPasajero.getText().trim());
         pasajeroActivo = pasajeroData.obtenerPasajeroPorDni(dni);
 
@@ -358,7 +313,6 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
         int opcion = JOptionPane.showConfirmDialog(this, "Desea eliminar: " + pasajeroActivo.getApellido() + " " + pasajeroActivo.getNombre() + "?");
 
         if (pasajeroActivo != null && opcion == 0) {
@@ -376,12 +330,10 @@ public class VistaPasajero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void telefonoPasajeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoPasajeroKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_telefonoPasajeroKeyReleased
 
     private void correoPasajeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_correoPasajeroKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_correoPasajeroKeyReleased
 

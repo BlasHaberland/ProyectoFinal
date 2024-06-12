@@ -6,8 +6,8 @@ public class Horario implements Comparable<Horario> {
 
   private int idHorario;
   private Ruta ruta;
-  private LocalTime horaSalida; // Verificar que sea el tipo de dato correcto
-  private LocalTime horaLlegada; // Verificar que sea el tipo de dato correcto
+  private LocalTime horaSalida; 
+  private LocalTime horaLlegada;
   private boolean estado;
 
   public Horario() {

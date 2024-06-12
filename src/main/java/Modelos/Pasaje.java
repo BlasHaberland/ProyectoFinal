@@ -114,8 +114,6 @@ public class Pasaje implements Comparable<Pasaje> {
   }
 
   @Override
-  // TODO: Este método devuelve demasiada información como para mostar en
-  // pantalla. Hay que modificarlo.
   public String toString() {
     return "Pasaje{" + "idPasaje=" + idPasaje + ", pasajero=" + pasajero + ", colectivo=" + colectivo + ", ruta=" + ruta + ", fechaViaje=" + fechaViaje + ", horaViaje=" + horaViaje + ", asiento=" + asiento + ", precio=" + precio + '}';
   }

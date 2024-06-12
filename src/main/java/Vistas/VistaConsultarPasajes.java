@@ -168,17 +168,14 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarPasajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarPasajeActionPerformed
-        // TODO add your handling code here:
         int idRutaBuscar = ((Ruta) ruta.getSelectedItem()).getIdRuta();
         int idHorarioBuscar = ((Horario) horario.getSelectedItem()).getIdHorario();
         int idColectivoBuscar = ((Colectivo) colectivo.getSelectedItem()).getIdColectivo();
         Date fechaDate = fecha.getDate();
         LocalDate fechaLocal = fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String fechaBuscar = fechaLocal.toString();
-        System.out.println(fechaBuscar);
 
         pasajesActivos = pasajeData.consultarPasajesFiltrado(idRutaBuscar, idColectivoBuscar, fechaBuscar, idHorarioBuscar);
-        //System.out.println("RUTA ID: " + idRutaBuscar + "\n" + "COLECTIVO ID: " + idColectivoBuscar + "\n" + "FECHA: " + fechaBuscar + "\n" + "HORARIO ID: " + idHorarioBuscar);
 
         if (!pasajesActivos.isEmpty()) {
             generarTabla(pasajesActivos);
@@ -190,12 +187,10 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buscarPasajeActionPerformed
 
     private void rutaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rutaItemStateChanged
-        // TODO add your handling code here:
         filtrarHorarios();
     }//GEN-LAST:event_rutaItemStateChanged
 
     private void eliminarPasajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarPasajeActionPerformed
-        // TODO add your handling code here:
         int filaSeleccionada = tablaPasaje.getSelectedRow();
         if (filaSeleccionada != -1) {
             int opcion = JOptionPane.showConfirmDialog(this, "Desea eliminar el pasaje seleccionado?");
@@ -214,17 +209,14 @@ public class VistaConsultarPasajes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_eliminarPasajeActionPerformed
 
     private void fechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_fechaPropertyChange
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_fechaPropertyChange
 
     private void tablaPasajeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPasajeMouseReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_tablaPasajeMouseReleased
 
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-        // TODO add your handling code here:
         limpiarCampos();
         chequearCampos();
 

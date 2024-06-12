@@ -178,47 +178,39 @@ public class Escritorio extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void menuCrearCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearCiudadActionPerformed
-    // TODO add your handling code here:
     VistaCiudad vista = new VistaCiudad();
     cargarVista(vista);
   }//GEN-LAST:event_menuCrearCiudadActionPerformed
 
     private void menuCrearPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearPasajeroActionPerformed
-    // TODO add your handling code here:
     VistaPasajero vista = new VistaPasajero();
     cargarVista(vista);
     }//GEN-LAST:event_menuCrearPasajeroActionPerformed
 
   private void menuCrearRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCrearRutasActionPerformed
-    // TODO add your handling code here:
     VistaRuta vista = new VistaRuta();
     cargarVista(vista);
   }//GEN-LAST:event_menuCrearRutasActionPerformed
 
   private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-    // TODO add your handling code here:
   }//GEN-LAST:event_jMenu2ActionPerformed
 
   private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-    // TODO add your handling code here:
     VistaColectivo vista = new VistaColectivo();
     cargarVista(vista);
   }//GEN-LAST:event_jMenuItem1ActionPerformed
 
   private void menuHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHorariosActionPerformed
-    // TODO add your handling code here:
     VistaHorarios vista = new VistaHorarios();
     cargarVista(vista);
   }//GEN-LAST:event_menuHorariosActionPerformed
 
   private void menuVentaPasajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVentaPasajesActionPerformed
-    // TODO add your handling code here:
     VistaVentaPasajes vista = new VistaVentaPasajes();
     cargarVista(vista);
   }//GEN-LAST:event_menuVentaPasajesActionPerformed
 
   private void menuConsultarPasajesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarPasajesActionPerformed
-    // TODO add your handling code here:
     VistaConsultarPasajes vista = new VistaConsultarPasajes();
     cargarVista(vista);
   }//GEN-LAST:event_menuConsultarPasajesActionPerformed
@@ -299,7 +291,7 @@ public class Escritorio extends javax.swing.JFrame {
     try {
       vista.setSelected(true);
     } catch (PropertyVetoException ex) {
-      System.out.println(ex);
+      System.err.println(ex);
     }
   }
 

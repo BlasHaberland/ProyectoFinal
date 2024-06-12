@@ -67,11 +67,6 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
         });
 
         idColectivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        idColectivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idColectivoActionPerformed(evt);
-            }
-        });
         idColectivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 idColectivoKeyReleased(evt);
@@ -82,11 +77,7 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
         jLabel7.setText("ID:");
 
         capacidadColectivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        capacidadColectivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                capacidadColectivoActionPerformed(evt);
-            }
-        });
+
         capacidadColectivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 capacidadColectivoKeyReleased(evt);
@@ -97,11 +88,7 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
         jLabel8.setText("Marca:");
 
         matriculaColectivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        matriculaColectivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matriculaColectivoActionPerformed(evt);
-            }
-        });
+
         matriculaColectivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 matriculaColectivoKeyReleased(evt);
@@ -112,11 +99,7 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
         jLabel9.setText("Matricula:");
 
         marcaColectivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        marcaColectivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                marcaColectivoActionPerformed(evt);
-            }
-        });
+
         marcaColectivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 marcaColectivoKeyReleased(evt);
@@ -130,11 +113,7 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
         jLabel11.setText("Capacidad:");
 
         modeloColectivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        modeloColectivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modeloColectivoActionPerformed(evt);
-            }
-        });
+
         modeloColectivo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 modeloColectivoKeyReleased(evt);
@@ -246,7 +225,6 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        // TODO add your handling code here:
         if (!idColectivo.getText().equals("")) {
             Integer id = Integer.valueOf(idColectivo.getText().trim());
             colectivoActivo = colectivoData.obtenerColectivoPorId(id);
@@ -286,53 +264,30 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_buscarActionPerformed
 
-    private void idColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idColectivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idColectivoActionPerformed
-
-    private void capacidadColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadColectivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_capacidadColectivoActionPerformed
-
     private void capacidadColectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capacidadColectivoKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_capacidadColectivoKeyReleased
 
-    private void matriculaColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matriculaColectivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_matriculaColectivoActionPerformed
 
     private void matriculaColectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_matriculaColectivoKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_matriculaColectivoKeyReleased
 
-    private void marcaColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaColectivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_marcaColectivoActionPerformed
 
     private void marcaColectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_marcaColectivoKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_marcaColectivoKeyReleased
 
-    private void modeloColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloColectivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modeloColectivoActionPerformed
 
     private void modeloColectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_modeloColectivoKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_modeloColectivoKeyReleased
 
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-        // TODO add your handling code here:
         limpiarCampos();
     }//GEN-LAST:event_limpiarActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-        // TODO add your handling code here:
         int opcion = JOptionPane.showConfirmDialog(this, "Desea eliminar el colectivo: " + "\n" + colectivoActivo.getMarca() + "\n" + "Modelo: " + colectivoActivo.getModelo() + "\n" + "Matricula: " + colectivoActivo.getMatricula());
 
         if (colectivoActivo != null && opcion == 0) {
@@ -347,7 +302,6 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // TODO add your handling code here:
         if (colectivoActivo == null) {
             String matricula = matriculaColectivo.getText().trim();
             String marca = marcaColectivo.getText().trim();
@@ -372,7 +326,6 @@ public class VistaColectivo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_guardarActionPerformed
 
     private void idColectivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idColectivoKeyReleased
-        // TODO add your handling code here:
         chequearCampos();
     }//GEN-LAST:event_idColectivoKeyReleased
 

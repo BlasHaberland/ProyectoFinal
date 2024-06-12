@@ -222,7 +222,6 @@ public class VistaRuta extends javax.swing.JInternalFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-    // TODO add your handling code here:
     Ciudad ciudadOrigen = (Ciudad) origen.getSelectedItem();
     Ciudad ciudadDestino = (Ciudad) destino.getSelectedItem();
 
@@ -248,37 +247,30 @@ public class VistaRuta extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_buscarActionPerformed
 
   private void duracionHorasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_duracionHorasKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_duracionHorasKeyReleased
 
   private void duracionMinutosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_duracionMinutosKeyReleased
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_duracionMinutosKeyReleased
 
   private void origenItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_origenItemStateChanged
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_origenItemStateChanged
 
   private void destinoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_destinoItemStateChanged
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_destinoItemStateChanged
 
   private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_limpiarActionPerformed
 
   private void estadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoItemStateChanged
-    // TODO add your handling code here:
     chequearCampos();
   }//GEN-LAST:event_estadoItemStateChanged
 
   private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
-    // TODO add your handling code here:
     boolean respuesta = rutaData.borrarRuta(rutaActiva.getIdRuta());
 
     if (respuesta) {
@@ -290,7 +282,6 @@ public class VistaRuta extends javax.swing.JInternalFrame {
   }//GEN-LAST:event_eliminarActionPerformed
 
   private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-    // TODO add your handling code here:
     Ciudad nuevoOrigen = (Ciudad) origen.getSelectedItem();
     Ciudad nuevoDestino = (Ciudad) destino.getSelectedItem();
     int horasNuevo = Integer.parseInt(duracionHoras.getText());
@@ -349,7 +340,6 @@ public class VistaRuta extends javax.swing.JInternalFrame {
   private void limpiarCampos() {
     rutaActiva = null;
 
-    // buscar.setEnabled(true);
     chequearCampos();
     limpiar.setEnabled(false);
     eliminar.setEnabled(false);
@@ -362,20 +352,20 @@ public class VistaRuta extends javax.swing.JInternalFrame {
   }
 
   private void chequearCampos() {
-    //OBTENER CAMPOS
+    // OBTENER CAMPOS
     String textoDuracionHoras = duracionHoras.getText().trim();
     String textoDuracionMinutos = duracionMinutos.getText().trim();
 
     // EXPRESIONES REGULARES PARA VALIDAR DOCUMENTO, NOMBRE Y APELLIDO
     String idRegex = "^\\d{1,8}$";
 
-    //VALIDAR CAMPOS
+    // VALIDAR CAMPOS
     boolean horaValida = Regex.validarRegex(idRegex, textoDuracionHoras);
     boolean minutoValido = Regex.validarRegex(idRegex, textoDuracionMinutos);
 
     boolean validado = horaValida && minutoValido;
 
-    //HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
+    // HABILITAR BOTONES GUARDAR Y ELIMINAR SI TODOS LOS CAMPOS SON VALIDOS
     Ciudad ciudadOrigen = (Ciudad) origen.getSelectedItem();
     Ciudad ciudadDestino = (Ciudad) destino.getSelectedItem();
 
@@ -389,7 +379,7 @@ public class VistaRuta extends javax.swing.JInternalFrame {
     eliminar.setEnabled(rutaActiva != null);
     guardar.setEnabled(validado && ciudadOrigen != null && ciudadDestino != null && !ciudadOrigen.equals(ciudadDestino));
 
-    //MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
+    // MOSTRAR ERROR ESPECIFICO SEGUN EL CAMPO
     if (!textoDuracionHoras.isEmpty() && !horaValida) {
       JOptionPane.showMessageDialog(this, "Horas inválida (Sólo se aceptan números. Mínimo 1 dígito");
     } else if (!textoDuracionMinutos.isEmpty() && !minutoValido) {
