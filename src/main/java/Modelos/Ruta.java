@@ -7,7 +7,7 @@ public class Ruta implements Comparable<Ruta> {
   private int idRuta;
   private Ciudad origen;
   private Ciudad destino;
-  private LocalTime duracionEstimada; // Verificar que sea el tipo de dato correcto
+  private LocalTime duracionEstimada;
   private boolean estado;
 
   public Ruta() {
